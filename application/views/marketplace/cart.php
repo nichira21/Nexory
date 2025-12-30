@@ -9,59 +9,7 @@
 
         <div id="cartItems" class="flex-grow-1 overflow-auto">
 
-            <!-- Item -->
-            <div class="cart-item p-3 border rounded-4 mb-3 d-flex gap-3 align-items-start" data-price="180000">
 
-                <img src="https://nexory.id/uploads/products/img.jpg"
-                     class="rounded-3"
-                     style="width:90px;height:90px;object-fit:cover">
-
-                <div class="flex-grow-1">
-                    <div class="fw-semibold">Nexory FRAME Display</div>
-                    <small class="text-muted d-block">Black | Standard Edition</small>
-                    
-                    <div class="text-dark fw-semibold mt-1">Rp 180.000</div>
-
-                    <div class="d-flex align-items-center mt-2 gap-2">
-                        <div class="input-group input-group-sm rounded-pill overflow-hidden" style="width:120px">
-                            <button class="btn btn-dark qty-minus">−</button>
-                            <input class="form-control text-center border-0 qty-input" value="1">
-                            <button class="btn btn-dark qty-plus">+</button>
-                        </div>
-
-                        <button class="btn btn-light border rounded-circle p-1 btn-delete">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-             <!-- Item -->
-            <div class="cart-item p-3 border rounded-4 mb-3 d-flex gap-3 align-items-start" data-price="35000">
-
-                <img src="https://nexory.id/uploads/products/img.jpg"
-                     class="rounded-3"
-                     style="width:90px;height:90px;object-fit:cover">
-
-                <div class="flex-grow-1">
-                    <div class="fw-semibold">Nexory FRAME Display ONLY</div>
-                    <small class="text-muted d-block">Black | Standard Edition</small>
-                    
-                    <div class="text-dark fw-semibold mt-1">Rp 35.000</div>
-
-                    <div class="d-flex align-items-center mt-2 gap-2">
-                        <div class="input-group input-group-sm rounded-pill overflow-hidden" style="width:120px">
-                            <button class="btn btn-dark qty-minus">−</button>
-                            <input class="form-control text-center border-0 qty-input" value="1">
-                            <button class="btn btn-dark qty-plus">+</button>
-                        </div>
-
-                        <button class="btn btn-light border rounded-circle p-1 btn-delete">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
 
         </div>
 
@@ -82,46 +30,3 @@
         </div>
     </div>
 </div>
-
-<script>
-document.addEventListener("click", function(e){
-
-    // PLUS
-    if(e.target.classList.contains("qty-plus")){
-        let input = e.target.closest(".input-group").querySelector(".qty-input");
-        input.value = parseInt(input.value) + 1;
-        updateTotal();
-    }
-
-    // MINUS
-    if(e.target.classList.contains("qty-minus")){
-        let input = e.target.closest(".input-group").querySelector(".qty-input");
-        let val = parseInt(input.value);
-        if(val > 1) input.value = val - 1;
-        updateTotal();
-    }
-
-    // DELETE
-    if(e.target.closest(".btn-delete")){
-        e.target.closest(".cart-item").remove();
-        updateTotal();
-    }
-
-});
-
-function updateTotal(){
-    let total = 0;
-
-    document.querySelectorAll(".cart-item").forEach(item=>{
-        let price = parseInt(item.dataset.price);
-        let qty = parseInt(item.querySelector(".qty-input").value);
-        total += price * qty;
-    });
-
-    document.getElementById("cartTotal").innerText =
-        "Rp " + total.toLocaleString("id-ID");
-}
-
-// initial total
-updateTotal();
-</script>
