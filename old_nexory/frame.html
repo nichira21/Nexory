@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA FRAME</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+body{background:#0b0d10}
+</style>
+</head>
+
+<body class="text-gray-200">
+
+<!-- HERO -->
+<section class="h-screen flex items-center px-[8vw]">
+  <div>
+    <p class="tracking-[0.3em] text-gray-400 mb-6">NEXORA FRAME</p>
+    <h1 class="text-[clamp(48px,7vw,88px)] font-medium">
+      The Next Standard
+    </h1>
+    <p class="mt-6 max-w-xl text-gray-400">
+      Engineered components. Refined control.
+    </p>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="py-32 px-[8vw] border-t border-gray-800 grid md:grid-cols-2 gap-12">
+  <img class="zoom border border-gray-800"
+       src="https://xreart.com/cdn/shop/files/5_03a129be-a90c-4e9b-90da-e33c38c879e8.jpg">
+  <img class="zoom border border-gray-800"
+       src="https://xreart.com/cdn/shop/products/xreartiwatch-1.jpg">
+</section>
+
+<!-- COMPONENTS -->
+<section class="py-40 px-[8vw] border-t border-gray-800 max-w-4xl">
+  <h2 class="text-4xl mb-10">Internal Architecture</h2>
+
+  <div class="space-y-6 text-gray-400">
+    <p><strong class="text-gray-200">Pod Module</strong> — Precision-molded chamber</p>
+    <p><strong class="text-gray-200">Coil Assembly</strong> — Optimized heat distribution</p>
+    <p><strong class="text-gray-200">Power Cell</strong> — High-density energy core</p>
+    <p><strong class="text-gray-200">Control Board</strong> — Advanced MCU regulation</p>
+    <p><strong class="text-gray-200">Airflow Sensor</strong> — Adaptive intake system</p>
+    <p><strong class="text-gray-200">USB-C Interface</strong> — Fast, stable charging</p>
+  </div>
+</section>
+
+<footer class="py-16 text-center text-gray-500 text-sm">
+  NEXORA FRAME — Designed beyond today
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray(".zoom").forEach(img=>{
+  gsap.from(img,{
+    scale:1.1,
+    scrollTrigger:{
+      trigger:img,
+      start:"top bottom",
+      end:"bottom top",
+      scrub:true
+    }
+  })
+});
+</script>
+
+</body>
+</html>
