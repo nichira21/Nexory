@@ -197,6 +197,10 @@
     .logo-blend {
       mix-blend-mode: multiply;
     }
+
+    .swal2-popup {
+      border-radius: 10px !important;
+    }
   </style>
 </head>
 <!-- Google tag (gtag.js) -->
@@ -224,12 +228,12 @@
 
       <div class="d-flex align-items-center gap-2">
 
+        <!-- CART -->
         <a class="btn btn-light border rounded-pill px-3 py-2 position-relative d-flex align-items-center"
           data-bs-toggle="offcanvas"
           data-bs-target="#cartPanel">
           <i class="bi bi-bag fs-5"></i>
 
-          <!-- Lingkaran merah bulat -->
           <span id="cartBadge"
             class="position-absolute top-0 start-100 translate-middle bg-danger text-white d-flex justify-content-center align-items-center"
             style="width:18px; height:18px; font-size:12px; border-radius:50%;">
@@ -237,20 +241,53 @@
           </span>
         </a>
 
+        <!-- LOGIN / USER -->
+        <?php if ($this->session->userdata('logged_in')): ?>
+          <div class="dropdown">
+            <span class="me-2">
+              Hi, <?= htmlspecialchars($this->session->userdata('name')) ?>
+            </span>
 
+            <button class="btn btn-dark rounded-pill px-4 py-2 fw-semibold dropdown-toggle"
+              data-bs-toggle="dropdown">
+              Pesan
+            </button>
 
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+              <li>
+                <a class="dropdown-item" href="<?= site_url('profile') ?>">
+                  <i class="bi bi-person me-2"></i> Profil
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="<?= site_url('orders') ?>">
+                  <i class="bi bi-receipt me-2"></i> Pesanan
+                </a>
+              </li>
 
+              <li>
+                <hr class="dropdown-divider">
+              </li>
 
-
-        <a href="#"
-          class="btn btn-dark rounded-pill px-4 py-2 fw-semibold"
-          data-bs-toggle="modal"
-          data-bs-target="#loginModal">
-          Masuk
-        </a>
+              <li>
+                <a class="dropdown-item text-danger btn-logout" href="#">
+                  <i class="bi bi-box-arrow-right me-2"></i> Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+        <?php else: ?>
+          <a href="#"
+            class="btn btn-dark rounded-pill px-4 py-2 fw-semibold"
+            data-bs-toggle="modal"
+            data-bs-target="#loginModal">
+            Masuk
+          </a>
+        <?php endif; ?>
 
 
       </div>
+
 
     </div>
   </nav>

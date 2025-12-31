@@ -4,36 +4,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class User_model extends CI_Model
 {
 
-    protected $table = 'tb_users';
+    private $table = 'tb_users';
 
-    public function getAll()
+    public function get_by_email($email)
     {
-        return $this->db->get($this->table)->result();
+        return $this->db
+            ->where('email', $email)
+            ->limit(1)
+            ->get($this->table)
+            ->row();
     }
 
-    public function getById($id)
+    public function email_exists($email)
     {
-        return $this->db->get_where($this->table, ['id' => $id])->row();
-    }
-
-    public function getByEmail($email)
-    {
-        return $this->db->get_where($this->table, ['email' => $email])->row();
+        return $this->db
+            ->where('email', $email)
+            ->count_all_results($this->table) > 0;
     }
 
     public function insert($data)
     {
-        $this->db->insert($this->table, $data);
-        return $this->db->insert_id();
-    }
-
-    public function update($id, $data)
-    {
-        return $this->db->where('id', $id)->update($this->table, $data);
-    }
-
-    public function delete($id)
-    {
-        return $this->db->delete($this->table, ['id' => $id]);
+        return $this->db->insert($this->table, $data);
     }
 }

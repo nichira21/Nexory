@@ -69,6 +69,52 @@
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<?= base_url('assets/js/app.js') ?>"></script>
+<!-- JQUERY (WAJIB) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<!-- SWEETALERT -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    window.Toast = Swal.mixin({
+        toast: true,
+        position: window.innerWidth < 576 ? 'top' : 'top-end',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        background: '#111',
+        color: '#fff',
+        iconColor: '#fff',
+        customClass: {
+            popup: 'rounded-4 shadow'
+        },
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+<script>
+    $(document).on('click', '.btn-logout', function(e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Logout?',
+            text: 'Kamu akan keluar dari akun ini',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Ya, Logout',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "<?= site_url('auth/logout') ?>";
+            }
+        });
+    });
+</script>
+
+
 </body>
 
 </html>

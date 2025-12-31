@@ -250,12 +250,12 @@
 
                 <div class="mb-3 text-start">
                     <label class="form-label">Email</label>
-                    <input type="email" class="form-control rounded-3" placeholder="Masukkan email">
+                    <input type="email" id="loginEmail" class="form-control">
                 </div>
 
                 <div class="mb-2 text-start">
                     <label class="form-label">Password</label>
-                    <input type="password" class="form-control rounded-3" placeholder="Masukkan password">
+                    <input type="password" id="loginPassword" class="form-control">
                 </div>
 
                 <p class="small text-secondary text-end mb-3">
@@ -263,9 +263,7 @@
                 </p>
 
                 <div class="d-grid gap-2 mt-3">
-                    <button class="btn btn-dark py-2 fw-semibold rounded-pill">
-                        LOGIN
-                    </button>
+                    <button onclick="loginSubmit()" class="btn btn-dark">LOGIN</button>
 
                     <button onclick="switchToRegister()"
                         class="btn btn-outline-dark py-2 fw-semibold rounded-pill">
@@ -287,23 +285,22 @@
 
                 <div class="mb-3 text-start">
                     <label class="form-label">Nama Lengkap</label>
-                    <input type="text" class="form-control rounded-3" placeholder="Nama lengkap">
+                    <input type="text" id="regName" class="form-control">
                 </div>
 
                 <div class="mb-3 text-start">
                     <label class="form-label">Email</label>
-                    <input type="email" class="form-control rounded-3" placeholder="Email">
+                    <input type="email" id="regEmail" class="form-control">
                 </div>
 
                 <div class="mb-3 text-start">
                     <label class="form-label">Password</label>
-                    <input type="password" class="form-control rounded-3" placeholder="Buat password">
+                    <input type="password" id="regPassword" class="form-control">
                 </div>
 
                 <div class="d-grid gap-2 mt-3">
-                    <button class="btn btn-dark py-2 fw-semibold rounded-pill">
-                        Daftar
-                    </button>
+                    <button onclick="registerSubmit()" class="btn btn-dark">Daftar</button>
+
 
                     <button onclick="switchToLogin()"
                         class="btn btn-outline-dark py-2 fw-semibold rounded-pill">
@@ -333,7 +330,7 @@
       <img src="${item.image}" style="width:90px;height:90px;object-fit:cover" class="rounded-3">
       <div class="flex-grow-1">
         <div class="fw-semibold">${item.name}</div>
-        <div class="fw-semibold mt-1">Rp ${item.price.toLocaleString('id-ID')}</div>
+        <div class="fw-semibold mt-1">  Rp ${Number(item.price).toLocaleString('id-ID')}</div>
 
         <div class="d-flex gap-2 mt-2">
           <button class="btn btn-dark btn-sm" data-act="minus">−</button>
@@ -405,7 +402,7 @@
                 data = [];
             cartEl.querySelectorAll('.cart-item').forEach(i => {
                 const q = +i.querySelector('.qty').textContent;
-                const p = +i.dataset.price;
+                const p = Number(i.dataset.price);
                 total += q * p;
                 count += q;
                 data.push({
@@ -422,10 +419,12 @@
         }
 
         function load() {
+            cartEl.innerHTML = ''; // 🔥 wajib
             (JSON.parse(localStorage.getItem(KEY) || '[]'))
             .forEach(i => cartEl.insertAdjacentHTML('beforeend', tpl(i)));
             sync();
         }
+
 
         /* ================= ANIMATION ================= */
         function pulse() {
@@ -449,5 +448,139 @@
 
     })();
 
+    /* ===================================================== MODAL SWITCH ===================================================== */
+    window.switchToRegister = function() {
+        const loginEl = document.getElementById('loginModal');
+        const regEl = document.getElementById('registerModal');
+
+        if (!loginEl || !regEl) return;
+
+        const loginModal = bootstrap.Modal.getOrCreateInstance(loginEl);
+
+        loginEl.addEventListener('hidden.bs.modal', function handler() {
+            loginEl.removeEventListener('hidden.bs.modal', handler);
+
+            const regModal = bootstrap.Modal.getOrCreateInstance(regEl);
+            regModal.show();
+        });
+
+        loginModal.hide();
+    };
+
+    window.switchToLogin = function() {
+        const loginEl = document.getElementById('loginModal');
+        const regEl = document.getElementById('registerModal');
+
+        if (!loginEl || !regEl) return;
+
+        const regModal = bootstrap.Modal.getOrCreateInstance(regEl);
+
+        regEl.addEventListener('hidden.bs.modal', function handler() {
+            regEl.removeEventListener('hidden.bs.modal', handler);
+
+            const loginModal = bootstrap.Modal.getOrCreateInstance(loginEl);
+            loginModal.show();
+        });
+
+        regModal.hide();
+    };
+
+    /* ===================================================== PROMO CODE ===================================================== */
+    document.addEventListener('DOMContentLoaded', () => {
+        const promo = document.getElementById('promo-code');
+        if (promo) {
+            promo.addEventListener('click', () => {
+                promo.style.backgroundColor = 'transparent';
+                promo.style.color = '#FFC107';
+            });
+        }
+    });
+    // ⛔ END GUARD
+
     document.addEventListener('DOMContentLoaded', NexoryCart.init);
+</script>
+
+
+
+
+
+
+<script>
+    let syncing = false;
+
+    function syncCartAfterLogin() {
+        if (syncing) return;
+        syncing = true;
+
+        const cart = JSON.parse(localStorage.getItem('nexory_cart') || '[]');
+
+        $.ajax({
+            url: "<?= site_url('Order/sync') ?>",
+            method: "POST",
+            data: {
+                cart: JSON.stringify(cart)
+            },
+            dataType: "json",
+            success(res) {
+                if (res.status && res.cart) {
+                    localStorage.setItem('nexory_cart', JSON.stringify(res.cart));
+                }
+            },
+            complete() {
+                syncing = false;
+            }
+        });
+    }
+
+
+    function loginSubmit() {
+        $.post("<?= site_url('User/login') ?>", {
+            email: $('#loginEmail').val(),
+            password: $('#loginPassword').val()
+        }, function(r) {
+
+            if (r.status) {
+                Toast.fire({
+                    icon: 'success',
+                    title: r.msg
+                });
+
+                syncCartAfterLogin();
+
+                setTimeout(() => {
+                    window.location.href = r.redirect;
+                }, 700);
+
+            } else {
+                Toast.fire({
+                    icon: 'error',
+                    title: r.msg
+                });
+            }
+
+        }, 'json');
+    }
+
+
+    function registerSubmit() {
+        $.post("<?= site_url('User/register') ?>", {
+            name: $('#regName').val(),
+            email: $('#regEmail').val(),
+            password: $('#regPassword').val()
+        }, function(res) {
+            let r = JSON.parse(res);
+            if (r.status) {
+                Toast.fire({
+                    icon: 'success',
+                    title: r.msg
+                });
+                setTimeout(() => switchToLogin(), 800);
+            } else {
+                Toast.fire({
+                    icon: 'error',
+                    title: r.msg
+                });
+            }
+        });
+    }
 </script>
