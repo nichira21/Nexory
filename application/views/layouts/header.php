@@ -207,7 +207,7 @@
       }
 
       .logo-crop img {
-        width: 180px;
+        width: 350px;
         /* ukuran aman logo mobile */
         height: auto;
         object-fit: contain;
