@@ -180,7 +180,7 @@
 
     /* DEFAULT (DESKTOP) */
     .logo-crop {
-      max-height: 220px;
+      max-height: 290px;
       overflow: hidden;
     }
 
