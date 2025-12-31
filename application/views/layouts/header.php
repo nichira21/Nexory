@@ -178,24 +178,40 @@
       opacity: 1;
     }
 
+    /* DEFAULT (DESKTOP) */
     .logo-crop {
-      height: 300px;
-      /* tinggi hasil akhir */
+      max-height: 220px;
       overflow: hidden;
-      /* POTONG atas & bawah */
-
     }
 
     .logo-crop img {
       width: 100%;
-      height: 150%;
-      object-fit: cover;
-      object-position: center;
-      background: transparent;
+      height: auto;
+      object-fit: contain;
+      /* 🔥 penting */
     }
 
+    /* BLEND */
     .logo-blend {
       mix-blend-mode: multiply;
+    }
+
+    /* MOBILE FIX */
+    @media (max-width: 576px) {
+      .logo-crop {
+        max-height: none;
+        /* ❌ jangan crop */
+        overflow: visible;
+        text-align: left;
+        /* biar sejajar hero text */
+      }
+
+      .logo-crop img {
+        width: 180px;
+        /* ukuran aman logo mobile */
+        height: auto;
+        object-fit: contain;
+      }
     }
 
     .swal2-popup {

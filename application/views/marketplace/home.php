@@ -6,10 +6,12 @@
         <div class="row align-items-center">
             <!-- Hero Text -->
             <div class="col-md-6 text-start">
-                <div class="logo-crop mb-3 logo-blend">
+                <div class="logo-crop logo-blend mb-3">
                     <img src="<?= base_url('assets/img/nexory-logo-black-transparent.png') ?>"
-                        alt="NEXORY">
+                        alt="NEXORY"
+                        class="logo-img">
                 </div>
+
 
 
                 <p class="hero-sub">
