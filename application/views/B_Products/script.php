@@ -10,9 +10,6 @@
     }
 
     function openEdit(data) {
-        mode = 'edit';
-        $('#modalTitle').text('Edit Produk');
-
         $('#product_id').val(data.id);
         $('#name').val(data.name);
         $('#category_id').val(data.category_id);
@@ -23,6 +20,7 @@
 
         $('#modalProduct').modal('show');
     }
+
 
     $('#formProduct').submit(function(e) {
         e.preventDefault();
