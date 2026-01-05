@@ -67,7 +67,6 @@
 
     </div>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<?= base_url('assets/js/app.js') ?>"></script>
 <!-- JQUERY (WAJIB) -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -94,6 +93,12 @@
     });
 </script>
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[data-bs-toggle="dropdown"]').forEach(el => {
+            bootstrap.Dropdown.getOrCreateInstance(el);
+        });
+    });
+
     $(document).on('click', '.btn-logout', function(e) {
         e.preventDefault();
 

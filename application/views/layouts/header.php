@@ -80,7 +80,6 @@
   <noscript><img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=918300190624192&ev=PageView&noscript=1" /></noscript>
   <!-- End Meta Pixel Code -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Clarity -->
   <script type="text/javascript">
@@ -196,6 +195,9 @@
       background: #f8f9fa;
     }
 
+    .dropdown-menu {
+      z-index: 1100;
+    }
 
     /* BLEND */
     .logo-blend {
@@ -270,10 +272,8 @@
               Hi, <?= htmlspecialchars($this->session->userdata('name')) ?>
             </span>
 
-            <button class="btn btn-dark rounded-pill px-4 py-2 fw-semibold dropdown-toggle"
-              data-bs-toggle="dropdown">
-              Menu
-            </button>
+            <button type="button" class="btn btn-dark rounded-pill px-4 py-2 fw-semibold dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Menu </button>
+
 
             <ul class="dropdown-menu dropdown-menu-end shadow">
               <li>
