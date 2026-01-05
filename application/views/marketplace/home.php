@@ -305,8 +305,36 @@
 
                 <div class="mb-3 text-start">
                     <label class="form-label">Password</label>
-                    <input type="password" id="regPassword" class="form-control">
+                    <div class="input-group">
+                        <input type="password" id="regPassword" class="form-control"
+                            oninput="checkPasswordMatch()">
+                        <span class="input-group-text bg-white"
+                            onclick="togglePassword('regPassword','eye1')"
+                            onmousedown="event.preventDefault()"
+                            style="cursor:pointer">
+                            <i id="eye1" class="bi bi-eye"></i>
+                        </span>
+                    </div>
                 </div>
+
+                <div class="mb-1 text-start">
+                    <label class="form-label">Konfirmasi Password</label>
+                    <div class="input-group">
+                        <input type="password" id="regPasswordConfirm" class="form-control"
+                            oninput="checkPasswordMatch()">
+                        <span class="input-group-text bg-white"
+                            onclick="togglePassword('regPasswordConfirm','eye2')"
+                            onmousedown="event.preventDefault()"
+                            style="cursor:pointer">
+                            <i id="eye2" class="bi bi-eye"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <small id="passwordHint" class="text-danger d-none">
+                    Password tidak sama
+                </small>
+
 
                 <div class="d-grid gap-2 mt-3">
                     <button onclick="registerSubmit()" class="btn btn-dark">Daftar</button>
@@ -609,5 +637,29 @@
             icon.classList.remove('bi-eye-slash');
             icon.classList.add('bi-eye');
         }
+    }
+
+    checkPasswordMatch() {
+        const pass = document.getElementById('regPassword').value;
+        const pass2 = document.getElementById('regPasswordConfirm').value;
+        const hint = document.getElementById('passwordHint');
+
+        if (!pass2) {
+            hint.classList.add('d-none');
+            return;
+        }
+
+        if (pass !== pass2) {
+            hint.classList.remove('d-none');
+        } else {
+            hint.classList.add('d-none');
+        }
+    }
+
+    // optional: blok submit kalau belum sama
+    function isPasswordValid() {
+        const pass = document.getElementById('regPassword').value;
+        const pass2 = document.getElementById('regPasswordConfirm').value;
+        return pass && pass === pass2;
     }
 </script>
