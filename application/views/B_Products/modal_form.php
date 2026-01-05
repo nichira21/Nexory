@@ -7,7 +7,7 @@
                 <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form id="formProduct" method="post" action="javascript:void(0);">
+            <form id="formProduct" method="post" action="javascript:void(0);" onsubmit="return false;">
                 <div class="modal-body">
 
                     <input type="hidden" name="id" id="product_id">

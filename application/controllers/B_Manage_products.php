@@ -17,6 +17,8 @@ class B_Manage_products extends CI_Controller
 
     public function index()
     {
+        $data['is_dashboard'] = false;
+
         $data['judul_pendek']  = 'Manage Products';
         $data['judul_panjang'] = 'Manage Products | Nexory';
         $data['products']     = $this->Product_model->getAllAdmin();
