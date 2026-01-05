@@ -24,6 +24,15 @@ class Marketplace extends CI_Controller
         $this->load->view('layouts/footer');
     }
 
+    public function terms()
+    {
+
+        $this->load->view('layouts/header');
+        $this->load->view('layouts/cookie_banner');
+        $this->load->view('marketplace/terms');
+        $this->load->view('layouts/footer');
+    }
+
     public function listing()
     {
         $data['products'] = $this->Product_model->getProducts();
