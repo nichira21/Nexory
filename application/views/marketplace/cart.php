@@ -20,9 +20,11 @@
                 <strong id="cartTotal" class="text-dark">Rp 180.000</strong>
             </div>
 
-            <button class="btn btn-dark w-100 fw-semibold py-2 rounded-pill mt-3">
+            <button class="btn btn-dark w-100 fw-semibold py-2 rounded-pill mt-3"
+                onclick="checkout()">
                 Lanjutkan
             </button>
+
 
             <a href="#" class="d-block text-center mt-2 small text-decoration-underline" data-bs-dismiss="offcanvas">
                 Batalkan
@@ -30,3 +32,30 @@
         </div>
     </div>
 </div>
+
+<script>
+    function checkout() {
+        $.post("<?= site_url('checkout/create') ?>", {}, function(r) {
+            if (!r.status) {
+                Toast.fire({
+                    icon: 'error',
+                    title: r.msg
+                });
+                return;
+            }
+
+            window.snap.pay(r.snap_token, {
+                onSuccess: function() {
+                    location.href = "<?= site_url('checkout/success') ?>";
+                },
+                onPending: function() {
+                    location.href = "<?= site_url('checkout/pending') ?>";
+                },
+                onError: function() {
+                    location.href = "<?= site_url('checkout/error') ?>";
+                }
+            });
+
+        }, 'json');
+    }
+</script>

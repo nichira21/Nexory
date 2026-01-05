@@ -34,6 +34,9 @@
   <link rel="icon" type="image/png" href="https://nexory.id/assets/img/asset.png" />
   <link rel="canonical" href="https://nexory.id/" />
 
+  <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-Ws_7VsU2OR7mOFX_"></script>
+
+
   <!-- Google Tag Manager -->
   <script>
     (function(w, d, s, l, i) {

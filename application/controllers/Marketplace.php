@@ -11,6 +11,17 @@ class Marketplace extends CI_Controller
         $this->load->model('Category_model');
     }
 
+    public function test_midtrans()
+    {
+        require_once APPPATH . 'third_party/midtrans/Midtrans.php';
+
+        \Midtrans\Config::$serverKey = 'YOUR_SERVER_KEY';
+        \Midtrans\Config::$isProduction = false;
+
+        echo 'MIDTRANS LOADED';
+    }
+
+
     public function index()
     {
         $data['categories'] = $this->Category_model->getAll();
