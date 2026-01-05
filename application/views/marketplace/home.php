@@ -243,7 +243,10 @@
 </section>
 
 
-<div class="modal fade" id="loginModal" tabindex="-1">
+<div class="modal fade" id="loginModal"
+    tabindex="-1"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg rounded-4">
 
@@ -288,7 +291,10 @@
     </div>
 </div>
 
-<div class="modal fade" id="registerModal" tabindex="-1">
+<div class="modal fade" id="registerModal"
+    tabindex="-1"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg rounded-4">
 
@@ -491,10 +497,18 @@
 
     /* ===================================================== MODAL SWITCH ===================================================== */
     function cleanModalState() {
-        document.body.classList.remove('modal-open');
-        document.body.style.paddingRight = '';
+        // hapus backdrop
         document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+
+        // pastikan body benar-benar normal
+        document.body.classList.remove('modal-open');
+        document.body.style.removeProperty('overflow');
+        document.body.style.removeProperty('padding-right');
+
+        // fallback keras (mobile fix)
+        document.documentElement.style.removeProperty('overflow');
     }
+
 
     window.switchToRegister = function() {
         const loginEl = document.getElementById('loginModal');
@@ -528,6 +542,14 @@
     document.addEventListener('hidden.bs.modal', () => {
         cleanModalState();
     });
+
+    // HARD FAILSAFE — kalau ESC / klik luar glitch
+    document.addEventListener('click', () => {
+        if (!document.querySelector('.modal.show')) {
+            cleanModalState();
+        }
+    });
+
 
     /* ===================================================== PROMO CODE ===================================================== */
     document.addEventListener('DOMContentLoaded', () => {
