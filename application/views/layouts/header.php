@@ -277,13 +277,18 @@
 
             <ul class="dropdown-menu dropdown-menu-end shadow">
               <li>
-                <a class="dropdown-item" href="<?= site_url('profile') ?>">
+                <a class="dropdown-item" href="<?= site_url('#') ?>">
                   <i class="bi bi-person me-2"></i> Profil
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="<?= site_url('orders') ?>">
+                <a class="dropdown-item" href="<?= site_url('#') ?>">
                   <i class="bi bi-receipt me-2"></i> Pesanan
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="<?= site_url('#') ?>">
+                  <i class="bi bi-receipt me-2"></i> Cek Pesanan
                 </a>
               </li>
 

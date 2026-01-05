@@ -108,7 +108,7 @@
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "<?= site_url('auth/logout') ?>";
+                window.location.href = "<?= site_url('User/logout') ?>";
             }
         });
     });
