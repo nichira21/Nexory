@@ -51,6 +51,47 @@
                         <label>Deskripsi</label>
                         <textarea name="description" id="description" class="form-control"></textarea>
                     </div>
+                    <hr class="my-3">
+
+                    <h6 class="text-sm fw-bold text-muted mb-2">Link Marketplace (Opsional)</h6>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Shopee</label>
+                            <input type="url" name="shopee_url" id="shopee_url" class="form-control"
+                                placeholder="https://shopee.co.id/...">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Tokopedia</label>
+                            <input type="url" name="tokopedia_url" id="tokopedia_url" class="form-control"
+                                placeholder="https://tokopedia.com/...">
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <label>TikTok Shop</label>
+                            <input type="url" name="tiktokshop_url" id="tiktokshop_url" class="form-control"
+                                placeholder="https://www.tiktok.com/...">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Lazada</label>
+                            <input type="url" name="lazada_url" id="lazada_url" class="form-control"
+                                placeholder="https://www.lazada.co.id/...">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label>Mode Penjualan</label>
+                            <select name="sell_mode" id="sell_mode" class="form-control">
+                                <option value="web">Web (Add to Cart)</option>
+                                <option value="marketplace">Marketplace</option>
+                                <option value="off">Nonaktif</option>
+                            </select>
+                        </div>
+                    </div>
 
                 </div>
 

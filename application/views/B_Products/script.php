@@ -17,6 +17,11 @@
         $('#stock').val(data.stock);
         $('#featured').val(data.featured);
         $('#description').val(data.description);
+        $('#shopee_url').val(data.shopee_url);
+        $('#tokopedia_url').val(data.tokopedia_url);
+        $('#tiktokshop_url').val(data.tiktokshop_url);
+        $('#lazada_url').val(data.lazada_url);
+        $('#sell_mode').val(data.sell_mode ?? 'web');
 
         $('#modalProduct').modal('show');
     }

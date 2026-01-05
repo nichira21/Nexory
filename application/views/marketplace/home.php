@@ -154,16 +154,67 @@
                                 class="behance-thumb">
 
                             <div class="overlay">
-                                <button
-                                    class="btn btn-dark fw-semibold px-4"
-                                    onclick="NexoryCart.add(this)"
-                                    data-id="<?= $p->id ?>"
-                                    data-name="<?= htmlspecialchars($p->name) ?>"
-                                    data-price="<?= $p->price ?>"
-                                    data-image="<?= base_url('uploads/products/' . $p->image) ?>">
-                                    Add to Cart
-                                </button>
+
+                                <?php if ($p->sell_mode === 'web'): ?>
+
+                                    <!-- WEB -->
+                                    <button
+                                        class="btn btn-dark fw-semibold px-4"
+                                        onclick="NexoryCart.add(this)"
+                                        data-id="<?= $p->id ?>"
+                                        data-name="<?= htmlspecialchars($p->name, ENT_QUOTES) ?>"
+                                        data-price="<?= $p->price ?>"
+                                        data-image="<?= base_url('uploads/products/' . $p->image) ?>">
+                                        Add to Cart
+                                    </button>
+
+                                <?php elseif ($p->sell_mode === 'marketplace'): ?>
+
+                                    <!-- MARKETPLACE -->
+                                    <div class="d-flex gap-2 flex-wrap justify-content-center">
+
+                                        <?php if ($p->shopee_url): ?>
+                                            <a href="<?= $p->shopee_url ?>" target="_blank"
+                                                class="btn btn-outline-danger btn-sm fw-semibold">
+                                                Shopee
+                                            </a>
+                                        <?php endif; ?>
+
+                                        <?php if ($p->tokopedia_url): ?>
+                                            <a href="<?= $p->tokopedia_url ?>" target="_blank"
+                                                class="btn btn-outline-success btn-sm fw-semibold">
+                                                Tokopedia
+                                            </a>
+                                        <?php endif; ?>
+
+                                        <?php if ($p->tiktokshop_url): ?>
+                                            <a href="<?= $p->tiktokshop_url ?>" target="_blank"
+                                                class="btn btn-outline-dark btn-sm fw-semibold">
+                                                TikTok Shop
+                                            </a>
+                                        <?php endif; ?>
+
+                                        <?php if ($p->lazada_url): ?>
+                                            <a href="<?= $p->lazada_url ?>" target="_blank"
+                                                class="btn btn-outline-primary btn-sm fw-semibold">
+                                                Lazada
+                                            </a>
+                                        <?php endif; ?>
+
+                                    </div>
+
+                                <?php else: ?>
+
+                                    <!-- OFF -->
+                                    <button class="btn btn-secondary fw-semibold px-4" disabled>
+                                        Tidak Tersedia
+                                    </button>
+
+                                <?php endif; ?>
+
                             </div>
+
+
 
                         </div>
 

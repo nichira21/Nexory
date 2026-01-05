@@ -26,6 +26,7 @@
                             <th>Stok</th>
                             <th>Featured</th>
                             <th>Status</th>
+                            <th>Target</th>
                             <th width="140">Aksi</th>
                         </tr>
                     </thead>
@@ -64,6 +65,15 @@
                                     <button class="btn btn-danger btn-sm" onclick="deleteProduct(<?= $p->id ?>)">
                                         Hapus
                                     </button>
+                                </td>
+                                <td>
+                                    <?php if ($p->sell_mode === 'web'): ?>
+                                        <span class="badge bg-dark">WEB</span>
+                                    <?php elseif ($p->sell_mode === 'marketplace'): ?>
+                                        <span class="badge bg-info">MARKETPLACE</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-secondary">OFF</span>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach ?>

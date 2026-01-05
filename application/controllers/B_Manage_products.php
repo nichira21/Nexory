@@ -40,7 +40,12 @@ class B_Manage_products extends CI_Controller
             'price'       => $input['price'],
             'stock'       => $input['stock'],
             'description' => $input['description'],
+            'shopee_url'     => $input['shopee_url'] ?? null,
+            'tokopedia_url' => $input['tokopedia_url'] ?? null,
+            'tiktokshop_url' => $input['tiktokshop_url'] ?? null,
+            'lazada_url'    => $input['lazada_url'] ?? null,
             'featured'    => $input['featured'],
+            'sell_mode' => $input['sell_mode'] ?? 'web',
             'status'      => 1,
             'created_at'  => date('Y-m-d H:i:s')
         ];
@@ -59,15 +64,32 @@ class B_Manage_products extends CI_Controller
     {
         $input = $this->input->post(null, true);
 
-        $this->Product_model->updateProduct($id, $input);
+        $data = [
+            'category_id'    => $input['category_id'],
+            'name'           => $input['name'],
+            'price'          => $input['price'],
+            'stock'          => $input['stock'],
+            'description'    => $input['description'],
+            'featured'       => $input['featured'],
+            'sell_mode'      => $input['sell_mode'] ?? 'web',
+
+            'shopee_url'     => $input['shopee_url'] ?? null,
+            'tokopedia_url'  => $input['tokopedia_url'] ?? null,
+            'tiktokshop_url' => $input['tiktokshop_url'] ?? null,
+            'lazada_url'     => $input['lazada_url'] ?? null,
+        ];
+
+
+        $this->Product_model->updateProduct($id, $data);
 
         log_activity([
             'user_id'  => $this->session->userdata('user_id'),
-            'activity' => 'Edit produk ID ' . $id
+            'activity' => 'Edit produk: ' . $input['name'] . ' (ID ' . $id . ')'
         ]);
 
         echo json_encode(['status' => true]);
     }
+
 
     public function delete($id)
     {
