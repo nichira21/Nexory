@@ -175,28 +175,28 @@
 
                                         <?php if ($p->shopee_url): ?>
                                             <a href="<?= $p->shopee_url ?>" target="_blank"
-                                                class="btn btn-outline-danger btn-sm fw-semibold">
+                                                class="btn btn-danger btn-sm fw-semibold">
                                                 Shopee
                                             </a>
                                         <?php endif; ?>
 
                                         <?php if ($p->tokopedia_url): ?>
                                             <a href="<?= $p->tokopedia_url ?>" target="_blank"
-                                                class="btn btn-outline-success btn-sm fw-semibold">
+                                                class="btn btn-success btn-sm fw-semibold">
                                                 Tokopedia
                                             </a>
                                         <?php endif; ?>
 
                                         <?php if ($p->tiktokshop_url): ?>
                                             <a href="<?= $p->tiktokshop_url ?>" target="_blank"
-                                                class="btn btn-outline-dark btn-sm fw-semibold">
+                                                class="btn btn-dark btn-sm fw-semibold">
                                                 TikTok Shop
                                             </a>
                                         <?php endif; ?>
 
                                         <?php if ($p->lazada_url): ?>
                                             <a href="<?= $p->lazada_url ?>" target="_blank"
-                                                class="btn btn-outline-primary btn-sm fw-semibold">
+                                                class="btn btn-primary btn-sm fw-semibold">
                                                 Lazada
                                             </a>
                                         <?php endif; ?>
