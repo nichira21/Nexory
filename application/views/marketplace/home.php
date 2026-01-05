@@ -245,8 +245,8 @@
 
 <div class="modal fade" id="loginModal"
     tabindex="-1"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false">
+    data-bs-backdrop="true"
+    data-bs-keyboard="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg rounded-4">
 
@@ -293,8 +293,8 @@
 
 <div class="modal fade" id="registerModal"
     tabindex="-1"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false">
+    data-bs-backdrop="true"
+    data-bs-keyboard="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg rounded-4">
 
@@ -496,17 +496,13 @@
     })();
 
     /* ===================================================== MODAL SWITCH ===================================================== */
-    function cleanModalState() {
-        // hapus backdrop
-        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+    function syncBodyScroll() {
+        // kalau masih ada modal aktif → JANGAN buka scroll
+        if (document.querySelector('.modal.show')) return;
 
-        // pastikan body benar-benar normal
         document.body.classList.remove('modal-open');
-        document.body.style.removeProperty('overflow');
         document.body.style.removeProperty('padding-right');
-
-        // fallback keras (mobile fix)
-        document.documentElement.style.removeProperty('overflow');
+        document.body.style.removeProperty('overflow');
     }
 
 
@@ -514,41 +510,33 @@
         const loginEl = document.getElementById('loginModal');
         const regEl = document.getElementById('registerModal');
 
-        const loginModal = bootstrap.Modal.getOrCreateInstance(loginEl);
-        loginModal.hide();
+        bootstrap.Modal.getInstance(loginEl)?.hide();
 
         setTimeout(() => {
-            cleanModalState();
-            const regModal = bootstrap.Modal.getOrCreateInstance(regEl);
-            regModal.show();
-        }, 300);
+            syncBodyScroll();
+            new bootstrap.Modal(regEl).show();
+        }, 200);
     };
+
 
 
     window.switchToLogin = function() {
         const loginEl = document.getElementById('loginModal');
         const regEl = document.getElementById('registerModal');
 
-        const regModal = bootstrap.Modal.getOrCreateInstance(regEl);
-        regModal.hide();
+        bootstrap.Modal.getInstance(regEl)?.hide();
 
         setTimeout(() => {
-            cleanModalState();
-            const loginModal = bootstrap.Modal.getOrCreateInstance(loginEl);
-            loginModal.show();
-        }, 300);
+            syncBodyScroll();
+            new bootstrap.Modal(loginEl).show();
+        }, 200);
     };
 
+
     document.addEventListener('hidden.bs.modal', () => {
-        cleanModalState();
+        syncBodyScroll();
     });
 
-    // HARD FAILSAFE — kalau ESC / klik luar glitch
-    document.addEventListener('click', () => {
-        if (!document.querySelector('.modal.show')) {
-            cleanModalState();
-        }
-    });
 
 
     /* ===================================================== PROMO CODE ===================================================== */
