@@ -490,41 +490,44 @@
     })();
 
     /* ===================================================== MODAL SWITCH ===================================================== */
+    function cleanModalState() {
+        document.body.classList.remove('modal-open');
+        document.body.style.paddingRight = '';
+        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+    }
+
     window.switchToRegister = function() {
         const loginEl = document.getElementById('loginModal');
         const regEl = document.getElementById('registerModal');
 
-        if (!loginEl || !regEl) return;
-
         const loginModal = bootstrap.Modal.getOrCreateInstance(loginEl);
+        loginModal.hide();
 
-        loginEl.addEventListener('hidden.bs.modal', function handler() {
-            loginEl.removeEventListener('hidden.bs.modal', handler);
-
+        setTimeout(() => {
+            cleanModalState();
             const regModal = bootstrap.Modal.getOrCreateInstance(regEl);
             regModal.show();
-        });
-
-        loginModal.hide();
+        }, 300);
     };
+
 
     window.switchToLogin = function() {
         const loginEl = document.getElementById('loginModal');
         const regEl = document.getElementById('registerModal');
 
-        if (!loginEl || !regEl) return;
-
         const regModal = bootstrap.Modal.getOrCreateInstance(regEl);
+        regModal.hide();
 
-        regEl.addEventListener('hidden.bs.modal', function handler() {
-            regEl.removeEventListener('hidden.bs.modal', handler);
-
+        setTimeout(() => {
+            cleanModalState();
             const loginModal = bootstrap.Modal.getOrCreateInstance(loginEl);
             loginModal.show();
-        });
-
-        regModal.hide();
+        }, 300);
     };
+
+    document.addEventListener('hidden.bs.modal', () => {
+        cleanModalState();
+    });
 
     /* ===================================================== PROMO CODE ===================================================== */
     document.addEventListener('DOMContentLoaded', () => {
