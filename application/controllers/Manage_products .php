@@ -6,6 +6,13 @@ class Manage_products extends CI_Controller
         parent::__construct();
         $this->load->model('Product_model');
         $this->load->helper('log');
+
+        if (
+            !$this->session->userdata('logged_in') ||
+            $this->session->userdata('role') !== 'admin'
+        ) {
+            redirect('Marketplace');
+        }
     }
 
     public function index()
