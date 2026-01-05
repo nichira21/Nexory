@@ -35,6 +35,15 @@ class User extends CI_Controller
 
         $user = $this->User_model->get_by_email($email);
 
+        if ((int)$user->email_verified !== 1) {
+            echo json_encode([
+                'status' => false,
+                'msg'    => 'Email belum diverifikasi. Silakan cek inbox email.'
+            ]);
+            return;
+        }
+
+
         if (!$user || $password !== $user->password) {
             echo json_encode([
                 'status' => false,
@@ -97,16 +106,11 @@ class User extends CI_Controller
             show_404();
         }
 
-        $data = [
-            'name'     => $this->input->post('name', true),
-            'email'    => $this->input->post('email', true),
-            'password' => md5(md5($this->input->post('password'))),
-            'phone'    => '',
-            'role'     => 'user',
-            'status'   => 1
-        ];
+        $name     = trim($this->input->post('name', true));
+        $email    = trim($this->input->post('email', true));
+        $password = $this->input->post('password', true);
 
-        if (!$data['name'] || !$data['email'] || !$this->input->post('password')) {
+        if (!$name || !$email || !$password) {
             echo json_encode([
                 'status' => false,
                 'msg'    => 'Semua field wajib diisi'
@@ -114,7 +118,7 @@ class User extends CI_Controller
             return;
         }
 
-        if ($this->User_model->email_exists($data['email'])) {
+        if ($this->User_model->email_exists($email)) {
             echo json_encode([
                 'status' => false,
                 'msg'    => 'Email sudah terdaftar'
@@ -122,13 +126,31 @@ class User extends CI_Controller
             return;
         }
 
+        // 🔐 Generate token verifikasi
+        $token = bin2hex(random_bytes(32));
+
+        $data = [
+            'name'               => $name,
+            'email'              => $email,
+            'password'           => md5(md5($password)),
+            'phone'              => '',
+            'role'               => 'user',
+            'status'             => 1,
+            'email_verified'     => 0,
+            'email_verify_token' => $token
+        ];
+
         $this->User_model->insert($data);
+
+        // 📧 Kirim email verifikasi
+        $this->_send_verification_email($email, $token);
 
         echo json_encode([
             'status' => true,
-            'msg'    => 'Registrasi berhasil, silakan login'
+            'msg'    => 'Registrasi berhasil. Silakan cek email untuk verifikasi akun.'
         ]);
     }
+
 
     // =====================
     // LOGOUT
@@ -136,6 +158,57 @@ class User extends CI_Controller
     public function logout()
     {
         $this->session->sess_destroy();
+        redirect('/');
+    }
+
+    private function _send_verification_email($email, $token)
+    {
+        $this->load->library('email');
+
+        $verifyLink = site_url('User/verify_email?token=' . $token);
+
+        $message = "
+        <h3>Verifikasi Akun Nexory</h3>
+        <p>Terima kasih telah mendaftar di Nexory.</p>
+        <p>Klik tombol di bawah untuk mengaktifkan akun Anda:</p>
+        <p>
+            <a href='{$verifyLink}'
+               style='background:#000;color:#fff;padding:10px 20px;
+                      text-decoration:none;border-radius:5px;'>
+               Verifikasi Akun
+            </a>
+        </p>
+        <p>Jika Anda tidak mendaftar, abaikan email ini.</p>
+    ";
+
+        $this->email->from('no-reply@nexory.id', 'Nexory');
+        $this->email->to($email);
+        $this->email->subject('Verifikasi Akun Nexory');
+        $this->email->message($message);
+        $this->email->set_mailtype('html');
+
+        $this->email->send();
+    }
+
+    public function verify_email()
+    {
+        $token = $this->input->get('token', true);
+
+        if (!$token) {
+            show_error('Token tidak valid');
+        }
+
+        $user = $this->User_model->get_by_token($token);
+
+        if (!$user) {
+            show_error('Token tidak ditemukan atau sudah digunakan');
+        }
+
+        // Update status verifikasi
+        $this->User_model->verify_email($user->id);
+
+        // Redirect ke homepage + info
+        $this->session->set_flashdata('success', 'Email berhasil diverifikasi. Silakan login.');
         redirect('/');
     }
 }

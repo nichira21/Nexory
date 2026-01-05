@@ -26,4 +26,23 @@ class User_model extends CI_Model
     {
         return $this->db->insert($this->table, $data);
     }
+
+    public function get_by_token($token)
+    {
+        return $this->db
+            ->where('email_verify_token', $token)
+            ->limit(1)
+            ->get($this->table)
+            ->row();
+    }
+
+    public function verify_email($user_id)
+    {
+        return $this->db
+            ->where('id', $user_id)
+            ->update($this->table, [
+                'email_verified'     => 1,
+                'email_verify_token' => null
+            ]);
+    }
 }
