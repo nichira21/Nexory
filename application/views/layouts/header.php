@@ -285,15 +285,11 @@
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="<?= site_url('#') ?>">
+                <a class="dropdown-item" href="<?= site_url('order') ?>">
                   <i class="bi bi-receipt me-2"></i> Pesanan
                 </a>
               </li>
-              <li>
-                <a class="dropdown-item" href="<?= site_url('#') ?>">
-                  <i class="bi bi-receipt me-2"></i> Cek Pesanan
-                </a>
-              </li>
+
 
               <li>
                 <hr class="dropdown-divider">
