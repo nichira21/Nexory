@@ -59,14 +59,6 @@
                                     <?= $p->status ? '<span class="badge bg-info">Aktif</span>' : '<span class="badge bg-danger">Nonaktif</span>' ?>
                                 </td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm" onclick='openEdit(<?= json_encode($p) ?>)'>
-                                        Edit
-                                    </button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteProduct(<?= $p->id ?>)">
-                                        Hapus
-                                    </button>
-                                </td>
-                                <td>
                                     <?php if ($p->sell_mode === 'web'): ?>
                                         <span class="badge bg-dark">WEB</span>
                                     <?php elseif ($p->sell_mode === 'marketplace'): ?>
@@ -75,6 +67,15 @@
                                         <span class="badge bg-secondary">OFF</span>
                                     <?php endif; ?>
                                 </td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" onclick='openEdit(<?= json_encode($p) ?>)'>
+                                        Edit
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteProduct(<?= $p->id ?>)">
+                                        Hapus
+                                    </button>
+                                </td>
+
                             </tr>
                         <?php endforeach ?>
                     </tbody>
