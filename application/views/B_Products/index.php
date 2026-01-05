@@ -71,9 +71,15 @@
                                     <button class="btn btn-warning btn-sm" onclick='openEdit(<?= json_encode($p) ?>)'>
                                         Edit
                                     </button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteProduct(<?= $p->id ?>)">
+                                    <button class="btn btn-danger btn-sm"
+                                        onclick="deleteProduct(
+                                                <?= $p->id ?>,
+                                                <?= json_encode($p->name) ?>,
+                                                <?= json_encode($p->image ?? null) ?>
+                                            )">
                                         Hapus
                                     </button>
+
                                 </td>
 
                             </tr>

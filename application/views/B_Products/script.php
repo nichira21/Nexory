@@ -36,6 +36,9 @@
             $('#modalProduct').modal('show');
         }
 
+        // ==========================
+        // SUBMIT ADD / EDIT
+        // ==========================
         $('#formProduct').off('submit').on('submit', function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -63,6 +66,68 @@
                 }
             });
         });
+
+        // ==========================
+        // DELETE PRODUCT (INI YANG KURANG)
+        // ==========================
+        window.deleteProduct = function(id, name, image) {
+
+            let htmlPreview = `
+            <div style="text-align:left">
+                <strong>Produk:</strong><br>
+                <span style="font-size:14px">${name}</span>
+            </div>
+        `;
+
+            if (image) {
+                htmlPreview = `
+                <div class="d-flex align-items-center gap-3">
+                    <img src="<?= base_url('uploads/products/') ?>${image}"
+                         style="width:60px;height:60px;object-fit:cover;border-radius:8px">
+                    <div>
+                        <div class="fw-semibold">${name}</div>
+                        <div class="text-muted text-sm">Produk akan dinonaktifkan</div>
+                    </div>
+                </div>
+            `;
+            }
+
+            Swal.fire({
+                title: 'Hapus produk?',
+                html: htmlPreview,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, hapus',
+                cancelButtonText: 'Batal',
+                reverseButtons: true,
+                focusCancel: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '<?= base_url('B_Manage_products/delete/') ?>' + id,
+                        method: 'POST',
+                        dataType: 'json',
+                        success: function(res) {
+                            if (res.status) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil',
+                                    text: 'Produk berhasil dihapus',
+                                    timer: 1200,
+                                    showConfirmButton: false
+                                }).then(() => location.reload());
+                            } else {
+                                Swal.fire('Gagal', res.msg || 'Gagal menghapus produk', 'error');
+                            }
+                        },
+                        error: function(xhr) {
+                            console.error(xhr.responseText);
+                            Swal.fire('Error', 'Terjadi kesalahan server', 'error');
+                        }
+                    });
+                }
+            });
+        };
 
     });
 </script>
