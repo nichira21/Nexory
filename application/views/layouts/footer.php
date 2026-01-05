@@ -61,7 +61,7 @@
             <div class="footer-legal">
                 <a href="#">Privacy Policy</a>
                 <span class="mx-2">•</span>
-                <a href="#">Terms</a>
+                <a href="<?= base_url('marketplace/terms') ?> ?>">Terms</a>
             </div>
         </div>
 
