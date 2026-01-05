@@ -7,7 +7,7 @@
                 <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form id="formProduct">
+            <form id="formProduct" method="post" action="javascript:void(0);">
                 <div class="modal-body">
 
                     <input type="hidden" name="id" id="product_id">
@@ -97,7 +97,9 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn bg-gradient-dark">Simpan</button>
+                    <button type="submit" class="btn bg-gradient-dark">
+                        Simpan
+                    </button>
                 </div>
             </form>
 

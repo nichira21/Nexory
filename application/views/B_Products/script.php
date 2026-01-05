@@ -10,6 +10,8 @@
     }
 
     function openEdit(data) {
+        mode = 'edit';
+
         $('#product_id').val(data.id);
         $('#name').val(data.name);
         $('#category_id').val(data.category_id);
@@ -17,6 +19,7 @@
         $('#stock').val(data.stock);
         $('#featured').val(data.featured);
         $('#description').val(data.description);
+
         $('#shopee_url').val(data.shopee_url);
         $('#tokopedia_url').val(data.tokopedia_url);
         $('#tiktokshop_url').val(data.tiktokshop_url);
@@ -26,32 +29,27 @@
         $('#modalProduct').modal('show');
     }
 
+    $('#formProduct').on('submit', function(e) {
+        e.preventDefault(); // ⛔ STOP SUBMIT NATIVE
 
-    $('#formProduct').submit(function(e) {
-        e.preventDefault();
+        const id = $('#product_id').val();
 
-        let url = mode === 'add' ?
-            '<?= base_url('manage_products/store') ?>' :
-            '<?= base_url('manage_products/update/') ?>' + $('#product_id').val();
+        const url = (mode === 'add') ?
+            '<?= base_url('B_Manage_products/store') ?>' :
+            '<?= base_url('B_Manage_products/update/') ?>' + id;
 
-        $.post(url, $(this).serialize(), function(res) {
-            location.reload();
-        }, 'json');
-    });
-
-    function deleteProduct(id) {
-        Swal.fire({
-            title: 'Hapus produk?',
-            text: 'Produk akan dinonaktifkan',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya, hapus'
-        }).then((r) => {
-            if (r.isConfirmed) {
-                $.post('<?= base_url('manage_products/delete/') ?>' + id, function() {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(res) {
+                if (res.status) {
                     location.reload();
-                });
+                } else {
+                    alert(res.msg || 'Gagal menyimpan data');
+                }
             }
         });
-    }
+    });
 </script>
