@@ -20,6 +20,97 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <!-- CSS Files -->
     <link id="pagestyle" href="<?= base_url(); ?>assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+    <style>
+        /* ================================
+   PRODUCT MODAL – FORCE CLEAN UI
+================================ */
+
+        #modalProduct .modal-content {
+            border-radius: 14px;
+        }
+
+        #modalProduct .modal-header {
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        #modalProduct .modal-title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        /* LABEL */
+        #modalProduct label,
+        #modalProduct .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+
+        /* INPUT / SELECT / TEXTAREA */
+        #modalProduct .form-control,
+        #modalProduct .form-select {
+            border-radius: 10px !important;
+            border: 1.5px solid #d1d5db !important;
+            font-size: 14px;
+            padding: 10px 12px !important;
+            background-color: #fff !important;
+            box-shadow: none !important;
+            transition: all .2s ease;
+        }
+
+        /* FOCUS STATE */
+        #modalProduct .form-control:focus,
+        #modalProduct .form-select:focus {
+            border-color: #111827 !important;
+            box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.12) !important;
+        }
+
+        /* TEXTAREA */
+        #modalProduct textarea.form-control {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        /* GRID SPACING */
+        #modalProduct .row>div {
+            margin-bottom: 14px;
+        }
+
+        /* FOOTER */
+        #modalProduct .modal-footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 16px;
+        }
+
+        /* BUTTONS */
+        #modalProduct .btn {
+            border-radius: 10px;
+            font-size: 13px;
+            padding: 8px 16px;
+        }
+
+        #modalProduct .btn-secondary {
+            background: #6b7280;
+            border: none;
+        }
+
+        #modalProduct .btn-dark,
+        #modalProduct .btn.bg-gradient-dark {
+            background: #111827 !important;
+            border: none;
+        }
+
+        /* REMOVE MATERIAL INPUT WEIRDNESS */
+        #modalProduct input,
+        #modalProduct textarea,
+        #modalProduct select {
+            outline: none !important;
+            -webkit-appearance: none;
+        }
+    </style>
+
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
