@@ -87,9 +87,18 @@ class Checkout extends CI_Controller
             return;
         }
 
+        // 🔥 BUAT MIDTRANS ORDER ID BARU
+        $midtransOrderId = $order->order_code . '-R' . time();
+
+        // simpan ke DB
+        $this->db->where('id', $order->id)
+            ->update('tb_orders', [
+                'midtrans_order_id' => $midtransOrderId
+            ]);
+
         $params = [
             'transaction_details' => [
-                'order_id' => $order->order_code,
+                'order_id' => $midtransOrderId,
                 'gross_amount' => $order->total
             ],
             'customer_details' => [
@@ -104,6 +113,7 @@ class Checkout extends CI_Controller
         $this->load->view('checkout/retry', compact('snapToken', 'order'));
         $this->load->view('layouts/footer');
     }
+
 
 
     public function pending()

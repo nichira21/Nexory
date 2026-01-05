@@ -3,37 +3,61 @@ class Midtrans_callback extends CI_Controller
 {
     public function index()
     {
-        $json = json_decode(file_get_contents("php://input"), true);
+        // Ambil JSON dari Midtrans
+        $json = json_decode(file_get_contents('php://input'), true);
 
-        if (!$json || !isset($json['order_id'])) return;
+        if (!$json || !isset($json['order_id'])) {
+            return;
+        }
 
-        $order = $this->db->get_where('tb_orders', [
-            'order_code' => $json['order_id']
-        ])->row();
+        // 🔥 INI BAGIAN PENTING
+        // Cari order berdasarkan midtrans_order_id
+        $order = $this->db
+            ->where('midtrans_order_id', $json['order_id'])
+            ->get('tb_orders')
+            ->row();
 
-        if (!$order) return;
+        // fallback (kalau transaksi pertama sebelum retry)
+        if (!$order) {
+            $order = $this->db
+                ->where('order_code', $json['order_id'])
+                ->get('tb_orders')
+                ->row();
+        }
 
-        // anti double callback
-        if ($order->payment_status === 'paid') return;
+        if (!$order) {
+            return; // order tidak ditemukan
+        }
 
-        if (in_array($json['transaction_status'], ['settlement', 'capture'])) {
+        // Anti double proses
+        if ($order->payment_status === 'paid') {
+            return;
+        }
+
+        // Status dari Midtrans
+        $transactionStatus = $json['transaction_status'];
+
+        if (in_array($transactionStatus, ['settlement', 'capture'])) {
 
             $this->db->trans_start();
 
-            $this->db->where('id', $order->id)->update('tb_orders', [
-                'payment_status' => 'paid',
-                'order_status'   => 'completed'
-            ]);
+            $this->db->where('id', $order->id)
+                ->update('tb_orders', [
+                    'payment_status' => 'paid',
+                    'order_status'   => 'completed'
+                ]);
 
-            // clear cart
-            $this->db->delete('tb_cart', ['user_id' => $order->user_id]);
+            // bersihkan cart
+            $this->db->delete('tb_cart', [
+                'user_id' => $order->user_id
+            ]);
 
             $this->db->trans_complete();
 
-            // kirim invoice
-            $this->_sendInvoice($order->id);
+            // (opsional) kirim email / invoice di sini
         }
     }
+
 
     private function _sendInvoice($order_id)
     {
