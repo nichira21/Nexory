@@ -101,7 +101,7 @@ class User extends CI_Controller
         $this->load->library('email');
 
         $this->email->from('noreply@nexory.id', 'Nexory'); // 🔥 WAJIB
-        $this->email->to('emailkamu@gmail.com');
+        $this->email->to('alfreditdgi@gmail.com');
         $this->email->subject('SMTP Nexory OK');
         $this->email->message('<b>Email berhasil dikirim 🎉</b>');
 
