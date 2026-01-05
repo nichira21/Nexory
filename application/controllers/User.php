@@ -95,6 +95,22 @@ class User extends CI_Controller
     }
 
 
+    public function test_email()
+    {
+        $this->load->library('email');
+
+        $this->email->to('alfreditdgi@gmail.com');
+        $this->email->subject('SMTP Nexory OK');
+        $this->email->message('<b>Email dari SMTP cPanel berhasil 🎉</b>');
+
+        if ($this->email->send()) {
+            echo 'EMAIL TERKIRIM ✅';
+        } else {
+            echo '<pre>';
+            print_r($this->email->print_debugger());
+            echo '</pre>';
+        }
+    }
 
 
     // =====================
