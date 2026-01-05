@@ -308,11 +308,9 @@
                     <div class="input-group">
                         <input type="password" id="regPassword" class="form-control"
                             oninput="checkPasswordMatch()">
-                        <span class="input-group-text bg-white"
-                            onclick="togglePassword('regPassword','eye1')"
-                            onmousedown="event.preventDefault()"
-                            style="cursor:pointer">
-                            <i id="eye1" class="bi bi-eye"></i>
+                        <span class="input-group-text bg-white" onclick="togglePassword()"
+                            onmousedown="event.preventDefault()">
+                            <i id="eyeIcon" class="bi bi-eye"></i>
                         </span>
                     </div>
                 </div>
@@ -322,11 +320,9 @@
                     <div class="input-group">
                         <input type="password" id="regPasswordConfirm" class="form-control"
                             oninput="checkPasswordMatch()">
-                        <span class="input-group-text bg-white"
-                            onclick="togglePassword('regPasswordConfirm','eye2')"
-                            onmousedown="event.preventDefault()"
-                            style="cursor:pointer">
-                            <i id="eye2" class="bi bi-eye"></i>
+                        <span class="input-group-text bg-white" onclick="togglePassword()"
+                            onmousedown="event.preventDefault()">
+                            <i id="eyeIcon" class="bi bi-eye"></i>
                         </span>
                     </div>
                 </div>
