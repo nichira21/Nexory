@@ -1,5 +1,5 @@
 <?php
-class Manage_products extends CI_Controller
+class B_Manage_products extends CI_Controller
 {
     public function __construct()
     {
