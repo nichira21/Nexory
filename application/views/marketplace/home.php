@@ -257,8 +257,16 @@
 
                 <div class="mb-2 text-start">
                     <label class="form-label">Password</label>
-                    <input type="password" id="loginPassword" class="form-control">
+
+                    <div class="input-group">
+                        <input type="password" id="loginPassword" class="form-control">
+                        <span class="input-group-text bg-white" onclick="togglePassword()"
+                            onmousedown="event.preventDefault()">
+                            <i id="eyeIcon" class="bi bi-eye"></i>
+                        </span>
+                    </div>
                 </div>
+
 
                 <p class="small text-secondary text-end mb-3">
                     <a href="#">Lupa password?</a>
@@ -584,5 +592,22 @@
                 });
             }
         });
+    }
+</script>
+
+<script>
+    function togglePassword() {
+        const input = document.getElementById('loginPassword');
+        const icon = document.getElementById('eyeIcon');
+
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        } else {
+            input.type = "password";
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
     }
 </script>

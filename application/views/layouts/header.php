@@ -191,6 +191,11 @@
       /* 🔥 penting */
     }
 
+    .input-group-text:hover {
+      background: #f8f9fa;
+    }
+
+
     /* BLEND */
     .logo-blend {
       mix-blend-mode: multiply;

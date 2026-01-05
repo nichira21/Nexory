@@ -100,7 +100,7 @@ class User extends CI_Controller
         $data = [
             'name'     => $this->input->post('name', true),
             'email'    => $this->input->post('email', true),
-            'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
+            'password' => md5(md5($this->input->post('password'))),
             'phone'    => '',
             'role'     => 'user',
             'status'   => 1
