@@ -70,6 +70,15 @@
         // ==========================
         // DELETE PRODUCT (INI YANG KURANG)
         // ==========================
+        $(document).on('click', '.btn-delete', function() {
+            deleteProduct(
+                $(this).data('id'),
+                $(this).data('name'),
+                $(this).data('image')
+            );
+        });
+
+
         window.deleteProduct = function(id, name, image) {
 
             let htmlPreview = `
