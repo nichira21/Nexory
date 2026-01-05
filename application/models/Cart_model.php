@@ -9,13 +9,25 @@ class Cart_model extends CI_Model
     public function getUserCart($user_id)
     {
         return $this->db
-            ->select('c.*, p.name, p.price, p.image')
+            ->select('
+            c.*,
+            p.name,
+            p.price,
+            (
+                SELECT i.image
+                FROM tb_product_images i
+                WHERE i.product_id = p.id
+                ORDER BY i.created_at ASC
+                LIMIT 1
+            ) as image
+        ')
             ->from('tb_cart c')
-            ->join('tb_products p', 'p.id=c.product_id')
+            ->join('tb_products p', 'p.id = c.product_id')
             ->where('c.user_id', $user_id)
             ->get()
             ->result();
     }
+
 
     public function add($data)
     {
