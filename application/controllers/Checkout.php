@@ -77,4 +77,17 @@ class Checkout extends CI_Controller
     {
         $this->load->view('checkout/success');
     }
+
+    public function pending()
+    {
+        // Optional: proteksi login
+        if (!$this->session->userdata('user_id')) {
+            redirect('/');
+            return;
+        }
+
+        $this->load->view('layouts/header');
+        $this->load->view('checkout/pending');
+        $this->load->view('layouts/footer');
+    }
 }
