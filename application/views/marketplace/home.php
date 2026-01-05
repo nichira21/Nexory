@@ -260,10 +260,12 @@
 
                     <div class="input-group">
                         <input type="password" id="loginPassword" class="form-control">
-                        <span class="input-group-text bg-white" onclick="togglePassword()"
+                        <span class="input-group-text bg-white"
+                            onclick="togglePassword('loginPassword','eyeLogin')"
                             onmousedown="event.preventDefault()">
-                            <i id="eyeIcon" class="bi bi-eye"></i>
+                            <i id="eyeLogin" class="bi bi-eye"></i>
                         </span>
+
                     </div>
                 </div>
 
@@ -308,10 +310,13 @@
                     <div class="input-group">
                         <input type="password" id="regPassword" class="form-control"
                             oninput="checkPasswordMatch()">
-                        <span class="input-group-text bg-white" onclick="togglePassword()"
+                        <span class="input-group-text bg-white"
+                            onclick="togglePassword('regPassword','eyeReg1')"
                             onmousedown="event.preventDefault()">
-                            <i id="eyeIcon" class="bi bi-eye"></i>
+                            <i id="eyeReg1" class="bi bi-eye"></i>
                         </span>
+
+
                     </div>
                 </div>
 
@@ -320,10 +325,12 @@
                     <div class="input-group">
                         <input type="password" id="regPasswordConfirm" class="form-control"
                             oninput="checkPasswordMatch()">
-                        <span class="input-group-text bg-white" onclick="togglePassword()"
+                        <span class="input-group-text bg-white"
+                            onclick="togglePassword('regPasswordConfirm','eyeReg2')"
                             onmousedown="event.preventDefault()">
-                            <i id="eyeIcon" class="bi bi-eye"></i>
+                            <i id="eyeReg2" class="bi bi-eye"></i>
                         </span>
+
                     </div>
                 </div>
 
@@ -620,20 +627,21 @@
 </script>
 
 <script>
-    function togglePassword() {
-        const input = document.getElementById('loginPassword');
-        const icon = document.getElementById('eyeIcon');
+    function togglePassword(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+
+        if (!input || !icon) return;
 
         if (input.type === "password") {
             input.type = "text";
-            icon.classList.remove('bi-eye');
-            icon.classList.add('bi-eye-slash');
+            icon.classList.replace('bi-eye', 'bi-eye-slash');
         } else {
             input.type = "password";
-            icon.classList.remove('bi-eye-slash');
-            icon.classList.add('bi-eye');
+            icon.classList.replace('bi-eye-slash', 'bi-eye');
         }
     }
+
 
     /* ================= PASSWORD MATCH CHECK ================= */
     function checkPasswordMatch() {
