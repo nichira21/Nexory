@@ -120,7 +120,7 @@ class User extends CI_Controller
                     <!-- HEADER -->
                     <tr>
                     <td align="center" style="padding:30px 20px 20px;">
-                        <img src="https://nexory.id/assets/img/og-nexory.png"
+                        <img src="https://nexory.id/assets/img/nexory-logo-black-transparent.png"
                             alt="Nexory"
                             width="180"
                             style="display:block;border:0;outline:none;">
@@ -285,7 +285,7 @@ class User extends CI_Controller
                     <!-- HEADER -->
                     <tr>
                     <td align="center" style="padding:30px 20px 20px;background:#ffffff;">
-                        <img src="https://nexory.id/assets/img/og-nexory.png"
+                        <img src="https://nexory.id/assets/img/nexory-logo-black-transparent.png"
                             alt="Nexory"
                             width="180"
                             style="display:block;border:0;outline:none;">
