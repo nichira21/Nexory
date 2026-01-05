@@ -1,55 +1,68 @@
 <script>
-    let mode = 'add';
+    document.addEventListener('DOMContentLoaded', function() {
 
-    function openAdd() {
-        mode = 'add';
-        $('#modalTitle').text('Tambah Produk');
-        $('#formProduct')[0].reset();
-        $('#product_id').val('');
-        $('#modalProduct').modal('show');
-    }
+        if (typeof window.jQuery === 'undefined') {
+            console.error('jQuery belum ter-load');
+            return;
+        }
 
-    function openEdit(data) {
-        mode = 'edit';
+        let mode = 'add';
 
-        $('#product_id').val(data.id);
-        $('#name').val(data.name);
-        $('#category_id').val(data.category_id);
-        $('#price').val(data.price);
-        $('#stock').val(data.stock);
-        $('#featured').val(data.featured);
-        $('#description').val(data.description);
+        window.openAdd = function() {
+            mode = 'add';
+            $('#modalTitle').text('Tambah Produk');
+            $('#formProduct')[0].reset();
+            $('#product_id').val('');
+            $('#modalProduct').modal('show');
+        }
 
-        $('#shopee_url').val(data.shopee_url);
-        $('#tokopedia_url').val(data.tokopedia_url);
-        $('#tiktokshop_url').val(data.tiktokshop_url);
-        $('#lazada_url').val(data.lazada_url);
-        $('#sell_mode').val(data.sell_mode ?? 'web');
+        window.openEdit = function(data) {
+            mode = 'edit';
 
-        $('#modalProduct').modal('show');
-    }
+            $('#product_id').val(data.id);
+            $('#name').val(data.name);
+            $('#category_id').val(data.category_id);
+            $('#price').val(data.price);
+            $('#stock').val(data.stock);
+            $('#featured').val(data.featured);
+            $('#description').val(data.description);
 
-    $('#formProduct').on('submit', function(e) {
-        e.preventDefault(); // ⛔ STOP SUBMIT NATIVE
+            $('#shopee_url').val(data.shopee_url);
+            $('#tokopedia_url').val(data.tokopedia_url);
+            $('#tiktokshop_url').val(data.tiktokshop_url);
+            $('#lazada_url').val(data.lazada_url);
+            $('#sell_mode').val(data.sell_mode ?? 'web');
 
-        const id = $('#product_id').val();
+            $('#modalProduct').modal('show');
+        }
 
-        const url = (mode === 'add') ?
-            '<?= base_url('B_Manage_products/store') ?>' :
-            '<?= base_url('B_Manage_products/update/') ?>' + id;
+        $('#formProduct').off('submit').on('submit', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
 
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(res) {
-                if (res.status) {
-                    location.reload();
-                } else {
-                    alert(res.msg || 'Gagal menyimpan data');
+            const id = $('#product_id').val();
+            const url = (mode === 'add') ?
+                '<?= base_url('B_Manage_products/store') ?>' :
+                '<?= base_url('B_Manage_products/update/') ?>' + id;
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(res) {
+                    if (res.status) {
+                        location.reload();
+                    } else {
+                        alert(res.msg || 'Gagal menyimpan data');
+                    }
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                    alert('AJAX error');
                 }
-            }
+            });
         });
+
     });
 </script>
