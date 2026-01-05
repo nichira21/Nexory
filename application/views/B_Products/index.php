@@ -72,9 +72,14 @@
                                         Edit
                                     </button>
                                     <button class="btn btn-danger btn-sm"
-                                        onclick="deleteProduct(<?= (int)$p->id ?>, <?= json_encode($p->name) ?>, <?= json_encode($p->image) ?>)">
+                                        onclick="deleteProduct(
+        <?= (int)$p->id ?>,
+        <?= json_encode($p->name) ?>,
+        <?= json_encode($p->image) ?>
+    )">
                                         Hapus
                                     </button>
+
                                 </td>
 
                             </tr>
