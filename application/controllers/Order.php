@@ -61,17 +61,54 @@ class Order extends CI_Controller
         $items = $this->db
             ->select('i.*, p.name')
             ->from('tb_order_items i')
-            ->join('tb_products p', 'p.id=i.product_id')
+            ->join('tb_products p', 'p.id = i.product_id')
             ->where('i.order_id', $order->id)
-            ->get()->result();
+            ->get()
+            ->result();
 
-        $html = $this->load->view('order/invoice_pdf', compact('order', 'items'), true);
+        // ===============================
+        // HITUNG SUBTOTAL
+        // ===============================
+        $subtotal = 0;
+        foreach ($items as $i) {
+            $subtotal += ($i->qty * $i->price);
+        }
+
+        // ===============================
+        // HITUNG PROMO / DISKON
+        // ===============================
+        $promo_value = 0;
+
+        if ($order->promo_type === 'persen') {
+            $promo_value = ($order->promo_value / 100) * $subtotal;
+        } elseif ($order->promo_type === 'nominal') {
+            $promo_value = $order->promo_value;
+        }
+
+        $promo_value = min($promo_value, $subtotal); // safety
+        $total_final = $subtotal - $promo_value;
+
+        // ===============================
+        // PASS KE VIEW
+        // ===============================
+        $html = $this->load->view(
+            'order/invoice_pdf',
+            [
+                'order'        => $order,
+                'items'        => $items,
+                'subtotal'     => $subtotal,
+                'promo_value'  => $promo_value,
+                'total_final'  => $total_final,
+            ],
+            true
+        );
 
         $this->pdf->loadHtml($html);
         $this->pdf->setPaper('A4', 'portrait');
         $this->pdf->render();
-        $this->pdf->stream("Invoice-{$order->order_code}.pdf", ['Attachment' => 1]);
+        $this->pdf->stream("Invoice-{$order->order_code}.pdf", ["Attachment" => false]);
     }
+
 
 
 
