@@ -95,13 +95,15 @@ class User extends CI_Controller
     }
 
 
-    public function test_email()
+    public function smtp_test()
     {
+        $this->load->config('email');
         $this->load->library('email');
 
-        $this->email->to('alfreditdgi@gmail.com');
+        $this->email->from('noreply@nexory.id', 'Nexory'); // 🔥 WAJIB
+        $this->email->to('emailkamu@gmail.com');
         $this->email->subject('SMTP Nexory OK');
-        $this->email->message('<b>Email dari SMTP cPanel berhasil 🎉</b>');
+        $this->email->message('<b>Email berhasil dikirim 🎉</b>');
 
         if ($this->email->send()) {
             echo 'EMAIL TERKIRIM ✅';
@@ -111,6 +113,7 @@ class User extends CI_Controller
             echo '</pre>';
         }
     }
+
 
 
     // =====================
@@ -179,6 +182,7 @@ class User extends CI_Controller
 
     private function _send_verification_email($email, $token)
     {
+        $this->load->config('email');
         $this->load->library('email');
 
         $verifyLink = site_url('User/verify_email?token=' . $token);
@@ -190,21 +194,22 @@ class User extends CI_Controller
         <p>
             <a href='{$verifyLink}'
                style='background:#000;color:#fff;padding:10px 20px;
-                      text-decoration:none;border-radius:5px;'>
+                      text-decoration:none;border-radius:6px;'>
                Verifikasi Akun
             </a>
         </p>
-        <p>Jika Anda tidak mendaftar, abaikan email ini.</p>
     ";
 
-        $this->email->from('no-reply@nexory.id', 'Nexory');
+        $this->email->from('noreply@nexory.id', 'Nexory'); // 🔥 FIX UTAMA
         $this->email->to($email);
         $this->email->subject('Verifikasi Akun Nexory');
         $this->email->message($message);
-        $this->email->set_mailtype('html');
 
-        $this->email->send();
+        if (!$this->email->send()) {
+            log_message('error', $this->email->print_debugger());
+        }
     }
+
 
     public function verify_email()
     {
