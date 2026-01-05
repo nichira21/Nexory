@@ -1,7 +1,80 @@
 <?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Order extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        if (!$this->session->userdata('user_id')) {
+            redirect('/');
+        }
+
+        $this->load->model('Order_model');
+    }
+
+    public function index()
+    {
+        $user_id = $this->session->userdata('user_id');
+
+        $data['orders'] = $this->Order_model->getByUser($user_id);
+
+        $this->load->view('layouts/header');
+        $this->load->view('order/index', $data);
+        $this->load->view('layouts/footer');
+    }
+
+    public function detail($code)
+    {
+        $user_id = $this->session->userdata('user_id');
+
+        $order = $this->Order_model->getByCode($code);
+
+        if (!$order || $order->user_id != $user_id) {
+            show_404();
+            return;
+        }
+
+        $items = $this->db
+            ->select('i.*, p.name')
+            ->from('tb_order_items i')
+            ->join('tb_products p', 'p.id=i.product_id')
+            ->where('i.order_id', $order->id)
+            ->get()->result();
+
+        $this->load->view('layouts/header');
+        $this->load->view('order/detail', compact('order', 'items'));
+        $this->load->view('layouts/footer');
+    }
+
+    public function invoice($code)
+    {
+        $this->load->library('pdf');
+
+        $order = $this->Order_model->getByCode($code);
+
+        if (!$order || $order->user_id != $this->session->userdata('user_id')) {
+            show_404();
+            return;
+        }
+
+        $items = $this->db
+            ->select('i.*, p.name')
+            ->from('tb_order_items i')
+            ->join('tb_products p', 'p.id=i.product_id')
+            ->where('i.order_id', $order->id)
+            ->get()->result();
+
+        $html = $this->load->view('order/invoice_pdf', compact('order', 'items'), true);
+
+        $this->pdf->loadHtml($html);
+        $this->pdf->setPaper('A4', 'portrait');
+        $this->pdf->render();
+        $this->pdf->stream("Invoice-{$order->order_code}.pdf", ['Attachment' => 1]);
+    }
+
+
+
     public function sync()
     {
         if (!$this->session->userdata('user_id')) {

@@ -78,6 +78,34 @@ class Checkout extends CI_Controller
         $this->load->view('checkout/success');
     }
 
+    public function retry($code)
+    {
+        $order = $this->Order_model->getByCode($code);
+
+        if (!$order || $order->payment_status === 'paid') {
+            redirect('order');
+            return;
+        }
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => $order->order_code,
+                'gross_amount' => $order->total
+            ],
+            'customer_details' => [
+                'first_name' => $this->session->userdata('name'),
+                'email' => $this->session->userdata('email')
+            ]
+        ];
+
+        $snapToken = $this->midtrans->getSnapToken($params);
+
+        $this->load->view('layouts/header');
+        $this->load->view('checkout/retry', compact('snapToken', 'order'));
+        $this->load->view('layouts/footer');
+    }
+
+
     public function pending()
     {
         // Optional: proteksi login
