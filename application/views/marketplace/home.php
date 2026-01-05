@@ -537,6 +537,22 @@
         syncBodyScroll();
     });
 
+    function cleanupBackdropIfIdle() {
+        // kalau masih ada modal aktif, jangan sentuh backdrop
+        if (document.querySelector('.modal.show')) return;
+
+        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+
+        document.body.classList.remove('modal-open');
+        document.body.style.removeProperty('padding-right');
+        document.body.style.removeProperty('overflow');
+    }
+
+    // saat modal BENAR-BENAR selesai ditutup
+    document.addEventListener('hidden.bs.modal', () => {
+        setTimeout(cleanupBackdropIfIdle, 50);
+    });
+
 
 
     /* ===================================================== PROMO CODE ===================================================== */
