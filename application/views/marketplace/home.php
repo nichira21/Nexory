@@ -280,8 +280,11 @@
                 <div class="d-grid gap-2 mt-3">
                     <button onclick="loginSubmit()" class="btn btn-dark">LOGIN</button>
 
-                    <button onclick="switchToRegister()"
-                        class="btn btn-outline-dark py-2 fw-semibold rounded-pill">
+                    <button
+                        class="btn btn-outline-dark py-2 fw-semibold rounded-pill"
+                        data-bs-toggle="modal"
+                        data-bs-target="#registerModal"
+                        data-bs-dismiss="modal">
                         BUAT AKUN
                     </button>
                 </div>
@@ -349,10 +352,14 @@
                     <button onclick="registerSubmit()" class="btn btn-dark">Daftar</button>
 
 
-                    <button onclick="switchToLogin()"
-                        class="btn btn-outline-dark py-2 fw-semibold rounded-pill">
+                    <button
+                        class="btn btn-outline-dark py-2 fw-semibold rounded-pill"
+                        data-bs-toggle="modal"
+                        data-bs-target="#loginModal"
+                        data-bs-dismiss="modal">
                         Login
                     </button>
+
                 </div>
             </div>
 
@@ -494,66 +501,6 @@
         };
 
     })();
-
-    /* ===================================================== MODAL SWITCH ===================================================== */
-    function syncBodyScroll() {
-        // kalau masih ada modal aktif → JANGAN buka scroll
-        if (document.querySelector('.modal.show')) return;
-
-        document.body.classList.remove('modal-open');
-        document.body.style.removeProperty('padding-right');
-        document.body.style.removeProperty('overflow');
-    }
-
-
-    window.switchToRegister = function() {
-        const loginEl = document.getElementById('loginModal');
-        const regEl = document.getElementById('registerModal');
-
-        bootstrap.Modal.getInstance(loginEl)?.hide();
-
-        setTimeout(() => {
-            syncBodyScroll();
-            new bootstrap.Modal(regEl).show();
-        }, 200);
-    };
-
-
-
-    window.switchToLogin = function() {
-        const loginEl = document.getElementById('loginModal');
-        const regEl = document.getElementById('registerModal');
-
-        bootstrap.Modal.getInstance(regEl)?.hide();
-
-        setTimeout(() => {
-            syncBodyScroll();
-            new bootstrap.Modal(loginEl).show();
-        }, 200);
-    };
-
-
-    document.addEventListener('hidden.bs.modal', () => {
-        syncBodyScroll();
-    });
-
-    function cleanupBackdropIfIdle() {
-        // kalau masih ada modal aktif, jangan sentuh backdrop
-        if (document.querySelector('.modal.show')) return;
-
-        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-
-        document.body.classList.remove('modal-open');
-        document.body.style.removeProperty('padding-right');
-        document.body.style.removeProperty('overflow');
-    }
-
-    // saat modal BENAR-BENAR selesai ditutup
-    document.addEventListener('hidden.bs.modal', () => {
-        setTimeout(cleanupBackdropIfIdle, 50);
-    });
-
-
 
     /* ===================================================== PROMO CODE ===================================================== */
     document.addEventListener('DOMContentLoaded', () => {
