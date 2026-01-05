@@ -639,24 +639,32 @@
         }
     }
 
-    checkPasswordMatch() {
-        const pass = document.getElementById('regPassword').value;
-        const pass2 = document.getElementById('regPasswordConfirm').value;
+    /* ================= PASSWORD MATCH CHECK ================= */
+    function checkPasswordMatch() {
+        const pass = document.getElementById('regPassword');
+        const pass2 = document.getElementById('regPasswordConfirm');
         const hint = document.getElementById('passwordHint');
 
-        if (!pass2) {
+        if (!pass || !pass2 || !hint) return;
+
+        if (!pass2.value) {
+            pass2.classList.remove('is-valid', 'is-invalid');
             hint.classList.add('d-none');
             return;
         }
 
-        if (pass !== pass2) {
-            hint.classList.remove('d-none');
-        } else {
+        if (pass.value === pass2.value) {
+            pass2.classList.add('is-valid');
+            pass2.classList.remove('is-invalid');
             hint.classList.add('d-none');
+        } else {
+            pass2.classList.add('is-invalid');
+            pass2.classList.remove('is-valid');
+            hint.classList.remove('d-none');
         }
     }
 
-    // optional: blok submit kalau belum sama
+    /* ================= BLOCK REGISTER IF NOT MATCH ================= */
     function isPasswordValid() {
         const pass = document.getElementById('regPassword').value;
         const pass2 = document.getElementById('regPasswordConfirm').value;
