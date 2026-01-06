@@ -20,11 +20,12 @@ class ShopeeApi
 
     /* ================= SIGN ================= */
 
-    private function sign($path, $timestamp)
+    private function signAuth($path, $timestamp, $redirect)
     {
-        $base = $this->partner_id . $path . $timestamp;
+        $base = $this->partner_id . $path . $timestamp . $redirect;
         return hash_hmac('sha256', $base, $this->partner_key);
     }
+
 
     /* ================= AUTH ================= */
 
@@ -32,7 +33,9 @@ class ShopeeApi
     {
         $timestamp = time();
         $path = '/api/v2/shop/auth_partner';
-        $sign = $this->sign($path, $timestamp);
+
+        // redirect HARUS RAW (belum urlencode)
+        $sign = $this->signAuth($path, $timestamp, $redirect_url);
 
         return $this->host . $path . '?'
             . 'partner_id=' . $this->partner_id
