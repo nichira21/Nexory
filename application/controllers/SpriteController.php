@@ -29,7 +29,10 @@ class SpriteController extends CI_Controller
         $data['sprites'] = $sprites;
         $data['tags'] = $this->db->get('tb_tag')->result();
 
+
+        $this->load->view('template_admin/header', $data);
         $this->load->view('sprite/index', $data);
+        $this->load->view('template_admin/footer');
     }
 
     // =========================================================

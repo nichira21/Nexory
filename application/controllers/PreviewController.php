@@ -12,8 +12,9 @@ class PreviewController extends CI_Controller
         $data['background'] = $this->db->get_where('tb_sprite', ['id' => $c->background_id])->row()->file_path;
 
 
-        $this->load->view('layouts/header');
+
+        $this->load->view('template_admin/header', $data);
         $this->load->view('canvas/index', $data);
-        $this->load->view('layouts/footer');
+        $this->load->view('template_admin/footer');
     }
 }
