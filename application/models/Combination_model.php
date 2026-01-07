@@ -2,42 +2,9 @@
 
 class Combination_model extends CI_Model
 {
-    public function createOrGetCombination($jam, $design, $bg)
-    {
-        $hash = md5("{$jam}-{$design}-{$bg}");
 
-        $existing = $this->db->get_where('tb_design_combination', [
-            'hash_key' => $hash
-        ])->row();
 
-        if ($existing)
-            return $existing;
 
-        $this->db->insert('tb_design_combination', [
-            'jam_id' => $jam,
-            'design_id' => $design,
-            'background_id' => $bg,
-            'hash_key' => $hash
-        ]);
-
-        return $this->db->get_where('tb_design_combination', [
-            'id' => $this->db->insert_id()
-        ])->row();
-    }
-
-    public function incrementGenerated($combination_id)
-    {
-        $this->db->set('generated_count', 'generated_count+1', FALSE)
-            ->where('id', $combination_id)
-            ->update('tb_design_combination');
-    }
-
-    public function incrementSold($combination_id, $qty)
-    {
-        $this->db->set('sold_count', "sold_count+{$qty}", FALSE)
-            ->where('id', $combination_id)
-            ->update('tb_design_combination');
-    }
 
     public function getUniqueCombinations($jam, $design, $bg)
     {
