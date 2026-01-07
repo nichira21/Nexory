@@ -107,6 +107,32 @@ class GeneratorController extends CI_Controller
             $orientation === 'landscape' ? 'landscape' : 'portrait'
         );
 
+        $css = '
+        <style>
+            @page {
+                margin: 0;
+            }
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .page {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                overflow: hidden;
+            }
+            .layer {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        </style>
+        ';
+
+
         $pages = [];
 
         // =====================================================
@@ -152,26 +178,34 @@ class GeneratorController extends CI_Controller
             // BUILD PAGE HTML (LAYERING)
             // =========================
             $pages[] = '
-            <div style="width:100%;height:100%;position:relative">
+                <div class="page">
 
-                <img src="' . base_url($bg->file_path) . '"
-                     style="width:100%;height:100%;position:absolute;left:0;top:0">
+                    <!-- BACKGROUND FULL COVER -->
+                    <img src="' . base_url($bg->file_path) . '"
+                        class="layer"
+                        style="width:100%;height:100%;object-fit:cover;">
 
-                <img src="' . base_url($jam->file_path) . '"
-                     style="width:80%;left:10%;top:20%;position:absolute">
+                    <!-- JAM -->
+                    <img src="' . base_url($jam->file_path) . '"
+                        class="layer"
+                        style="width:80%;left:10%;top:20%;">
 
-                <img src="' . base_url($design->file_path) . '"
-                     style="width:60%;left:20%;top:60%;position:absolute">
+                    <!-- DESIGN -->
+                    <img src="' . base_url($design->file_path) . '"
+                        class="layer"
+                        style="width:60%;left:20%;top:60%;">
 
-            </div>';
+                </div>';
         }
 
         // =====================================================
         // RENDER MULTIPAGE PDF
         // =====================================================
         $dompdf->loadHtml(
-            implode('<div style="page-break-after:always"></div>', $pages)
+            $css .
+                implode('<div style="page-break-after:always"></div>', $pages)
         );
+
 
         $dompdf->render();
 
