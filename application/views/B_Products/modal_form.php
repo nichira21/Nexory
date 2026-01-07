@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalProduct" tabindex="-1">
+<div class="modal fade modal-clean" id="modalProduct">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 

@@ -93,7 +93,7 @@
 
 </div>
 
-<div id="spriteModal" class="modal fade" tabindex="-1">
+<div id="spriteModal" class="modal fade modal-clean" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
 

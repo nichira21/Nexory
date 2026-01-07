@@ -22,25 +22,25 @@
     <link id="pagestyle" href="<?= base_url(); ?>assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
     <style>
         /* ================================
-   PRODUCT MODAL – FORCE CLEAN UI
+   CLEAN FORM MODAL (UNIVERSAL)
 ================================ */
 
-        #modalProduct .modal-content {
+        .modal-clean .modal-content {
             border-radius: 14px;
         }
 
-        #modalProduct .modal-header {
+        .modal-clean .modal-header {
             border-bottom: 1px solid #e5e7eb;
         }
 
-        #modalProduct .modal-title {
+        .modal-clean .modal-title {
             font-weight: 600;
             font-size: 18px;
         }
 
         /* LABEL */
-        #modalProduct label,
-        #modalProduct .form-label {
+        .modal-clean label,
+        .modal-clean .form-label {
             font-size: 13px;
             font-weight: 600;
             color: #6b7280;
@@ -48,8 +48,8 @@
         }
 
         /* INPUT / SELECT / TEXTAREA */
-        #modalProduct .form-control,
-        #modalProduct .form-select {
+        .modal-clean .form-control,
+        .modal-clean .form-select {
             border-radius: 10px !important;
             border: 1.5px solid #d1d5db !important;
             font-size: 14px;
@@ -59,52 +59,52 @@
             transition: all .2s ease;
         }
 
-        /* FOCUS STATE */
-        #modalProduct .form-control:focus,
-        #modalProduct .form-select:focus {
+        /* FOCUS */
+        .modal-clean .form-control:focus,
+        .modal-clean .form-select:focus {
             border-color: #111827 !important;
             box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.12) !important;
         }
 
         /* TEXTAREA */
-        #modalProduct textarea.form-control {
+        .modal-clean textarea.form-control {
             resize: vertical;
             min-height: 90px;
         }
 
         /* GRID SPACING */
-        #modalProduct .row>div {
+        .modal-clean .row>div {
             margin-bottom: 14px;
         }
 
         /* FOOTER */
-        #modalProduct .modal-footer {
+        .modal-clean .modal-footer {
             border-top: 1px solid #e5e7eb;
             padding: 16px;
         }
 
         /* BUTTONS */
-        #modalProduct .btn {
+        .modal-clean .btn {
             border-radius: 10px;
             font-size: 13px;
             padding: 8px 16px;
         }
 
-        #modalProduct .btn-secondary {
+        .modal-clean .btn-secondary {
             background: #6b7280;
             border: none;
         }
 
-        #modalProduct .btn-dark,
-        #modalProduct .btn.bg-gradient-dark {
+        .modal-clean .btn-dark,
+        .modal-clean .btn.bg-gradient-dark {
             background: #111827 !important;
             border: none;
         }
 
-        /* REMOVE MATERIAL INPUT WEIRDNESS */
-        #modalProduct input,
-        #modalProduct textarea,
-        #modalProduct select {
+        /* INPUT NORMALIZATION */
+        .modal-clean input,
+        .modal-clean textarea,
+        .modal-clean select {
             outline: none !important;
             -webkit-appearance: none;
         }
