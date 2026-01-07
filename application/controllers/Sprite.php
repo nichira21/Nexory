@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class SpriteController extends CI_Controller
+class Sprite extends CI_Controller
 {
     public function __construct()
     {
@@ -53,9 +53,7 @@ class SpriteController extends CI_Controller
         $data['judul_pendek']  = 'Manage Design';
         $data['judul_panjang'] = 'Manage Design | Nexory';
 
-        $this->load->view('template_admin/header');
         $this->load->view('sprite/create', $data);
-        $this->load->view('template_admin/footer');
     }
 
     // =========================================================
@@ -130,16 +128,8 @@ class SpriteController extends CI_Controller
         $data['tags'] = $this->db->get('tb_tag')->result();
 
 
-        $data['is_dashboard'] = false;
 
-        $data['judul_pendek']  = 'Manage Design';
-        $data['judul_panjang'] = 'Manage Design | Nexory';
-
-
-
-        $this->load->view('template_admin/header');
         $this->load->view('sprite/edit', $data);
-        $this->load->view('template_admin/footer');
     }
 
     // =========================================================
