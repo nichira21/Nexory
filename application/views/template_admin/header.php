@@ -168,7 +168,7 @@
                 </li>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="<?= base_url('TagController') ?>">
+                    <a class="nav-link text-dark" href="<?= base_url('Tag') ?>">
                         <i class="material-symbols-rounded opacity-5">table_view</i>
                         <span class="nav-link-text ms-1">Manage Tag</span>
                     </a>
