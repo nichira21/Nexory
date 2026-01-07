@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // LOAD DOMPDF
-require_once(APPPATH.'third_party/dompdf/autoload.inc.php');
+require_once(APPPATH . 'third_party/dompdf/autoload.inc.php');
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -64,12 +64,12 @@ class GeneratorController extends CI_Controller
         $combos = [];
 
         foreach ($jams as $j)
-        foreach ($designs as $d)
-        foreach ($bgs as $b)
-            $combos[] = [$j,$d,$b];
+            foreach ($designs as $d)
+                foreach ($bgs as $b)
+                    $combos[] = [$j, $d, $b];
 
         // weight priority by sales score
-        usort($combos, function($a,$b){
+        usort($combos, function ($a, $b) {
             $wa = ($a[0]->sold_count + $a[1]->sold_count + $a[2]->sold_count);
             $wb = ($b[0]->sold_count + $b[1]->sold_count + $b[2]->sold_count);
             return $wb <=> $wa;
@@ -103,7 +103,7 @@ class GeneratorController extends CI_Controller
         $page_height = 400 * 2.83465;
 
         $dompdf->setPaper(
-            [$page_width,$page_height],
+            [$page_width, $page_height],
             ($orientation == 'landscape' ? 'landscape' : 'portrait')
         );
 
@@ -114,12 +114,11 @@ class GeneratorController extends CI_Controller
         // =====================================================
         $selected = array_slice($combos, 0, $qty);
 
-        foreach ($selected as $set)
-        {
-            [$jam,$design,$bg] = $set;
+        foreach ($selected as $set) {
+            [$jam, $design, $bg] = $set;
 
             $combination = $this->Combination_model
-                ->createOrGetCombination($jam->id,$design->id,$bg->id);
+                ->createOrGetCombination($jam->id, $design->id, $bg->id);
 
             // auto-skip disabled
             if (!empty($combination->is_disabled) && $combination->is_disabled == 1)
@@ -140,14 +139,14 @@ class GeneratorController extends CI_Controller
             $this->Tag_model->incrementUsedBySprite($design->id);
             $this->Tag_model->incrementUsedBySprite($bg->id);
 
-            $this->Sprite_model->logUsage($jam->id,'jam',$batch_id);
-            $this->Sprite_model->logUsage($design->id,'design',$batch_id);
-            $this->Sprite_model->logUsage($bg->id,'background',$batch_id);
+            $this->Sprite_model->logUsage($jam->id, 'jam', $batch_id);
+            $this->Sprite_model->logUsage($design->id, 'design', $batch_id);
+            $this->Sprite_model->logUsage($bg->id, 'background', $batch_id);
 
             $this->db->trans_complete();
 
             if (!$this->db->trans_status())
-                show_error("DB Transaction Failed",500);
+                show_error("DB Transaction Failed", 500);
 
             // =========================
             // BUILD PAGE HTML (LAYERING)
@@ -155,13 +154,13 @@ class GeneratorController extends CI_Controller
             $pages[] = '
             <div style="width:100%;height:100%;position:relative">
 
-                <img src="'.base_url($bg->file_path).'"
+                <img src="' . base_url($bg->file_path) . '"
                      style="width:100%;height:100%;position:absolute;left:0;top:0">
 
-                <img src="'.base_url($jam->file_path).'"
+                <img src="' . base_url($jam->file_path) . '"
                      style="width:80%;left:10%;top:20%;position:absolute">
 
-                <img src="'.base_url($design->file_path).'"
+                <img src="' . base_url($design->file_path) . '"
                      style="width:60%;left:20%;top:60%;position:absolute">
 
             </div>';
@@ -183,6 +182,4 @@ class GeneratorController extends CI_Controller
 
         exit;
     }
-}
-
 }
