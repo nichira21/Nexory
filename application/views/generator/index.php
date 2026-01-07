@@ -13,7 +13,7 @@
     <div class="card mb-4">
         <div class="card-body">
 
-            <form method="post" action="<?= site_url('generator/generate') ?>" target="_blank">
+            <form method="post" action="<?= site_url('GeneratorController/generate') ?>" target="_blank">
 
                 <div class="row">
 
