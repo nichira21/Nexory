@@ -103,8 +103,8 @@ class GeneratorController extends CI_Controller
         $page_height = 400 * 2.83465;
 
         $dompdf->setPaper(
-            [$page_width, $page_height],
-            ($orientation == 'landscape' ? 'landscape' : 'portrait')
+            [0, 0, $page_width, $page_height],
+            $orientation === 'landscape' ? 'landscape' : 'portrait'
         );
 
         $pages = [];
