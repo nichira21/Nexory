@@ -1,5 +1,5 @@
 <form method="post"
-    action="<?= site_url('sprite/update/' . $sprite->id) ?>"
+    action="<?= site_url('Sprite/update/' . $sprite->id) ?>"
     enctype="multipart/form-data">
 
     <div class="mb-2">

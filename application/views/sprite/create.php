@@ -1,6 +1,6 @@
 <!-- FORM -->
 <form method="post"
-    action="<?= site_url('sprite/store') ?>"
+    action="<?= site_url('Sprite/store') ?>"
     enctype="multipart/form-data">
 
     <div class="modal-body">
