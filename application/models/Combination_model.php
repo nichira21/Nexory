@@ -3,9 +3,6 @@
 class Combination_model extends CI_Model
 {
 
-
-
-
     public function getUniqueCombinations($jam, $design, $bg)
     {
         $hash = md5("{$jam}-{$design}-{$bg}");
