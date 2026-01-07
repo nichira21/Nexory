@@ -157,9 +157,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="../pages/billing.html">
-                        <i class="material-symbols-rounded opacity-5">receipt_long</i>
-                        <span class="nav-link-text ms-1">Billing</span>
+                    <a class="nav-link text-dark" href="<?= base_url('SpriteController') ?>">
+                        <i class="material-symbols-rounded opacity-5">Generator Jam</i>
+                        <span class="nav-link-text ms-1">Generator Jam</span>
                     </a>
                 </li>
                 <li class="nav-item">
