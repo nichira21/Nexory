@@ -92,3 +92,47 @@
     </div>
 
 </div>
+
+<div id="spriteModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold" id="modalTitle">Tambah Sprite</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body" id="modalBody">
+                <!-- form akan dimuat via AJAX -->
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function openAddSprite() {
+        $('#modalTitle').text('Tambah Sprite');
+
+        $.get('<?= site_url("sprite/create") ?>', function(res) {
+            $('#modalBody').html(res);
+            $('#spriteModal').modal('show');
+        });
+    }
+
+    function openEditSprite(data) {
+        $('#modalTitle').text('Edit Sprite');
+
+        $.get('<?= site_url("sprite/edit/") ?>' + data.id, function(res) {
+            $('#modalBody').html(res);
+            $('#spriteModal').modal('show');
+        });
+    }
+
+    function deleteSprite(id) {
+        if (!confirm('Hapus sprite ini?')) return;
+
+        window.location.href =
+            '<?= site_url("sprite/delete/") ?>' + id;
+    }
+</script>

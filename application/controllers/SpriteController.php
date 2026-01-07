@@ -29,8 +29,8 @@ class SpriteController extends CI_Controller
 
         $data['is_dashboard'] = false;
 
-        $data['judul_pendek']  = 'Manage Products';
-        $data['judul_panjang'] = 'Manage Products | Nexory';
+        $data['judul_pendek']  = 'Manage Design';
+        $data['judul_panjang'] = 'Manage Design | Nexory';
 
 
         $data['sprites'] = $sprites;
@@ -48,10 +48,14 @@ class SpriteController extends CI_Controller
     public function create()
     {
         $data['tags'] = $this->db->get('tb_tag')->result();
+        $data['is_dashboard'] = false;
 
-        $this->load->view('layouts/header');
+        $data['judul_pendek']  = 'Manage Design';
+        $data['judul_panjang'] = 'Manage Design | Nexory';
+
+        $this->load->view('template_admin/header');
         $this->load->view('sprite/create', $data);
-        $this->load->view('layouts/footer');
+        $this->load->view('template_admin/footer');
     }
 
     // =========================================================
@@ -125,7 +129,17 @@ class SpriteController extends CI_Controller
         $data['selected_tags'] = array_column($tags, 'tag_id');
         $data['tags'] = $this->db->get('tb_tag')->result();
 
+
+        $data['is_dashboard'] = false;
+
+        $data['judul_pendek']  = 'Manage Design';
+        $data['judul_panjang'] = 'Manage Design | Nexory';
+
+
+
+        $this->load->view('template_admin/header');
         $this->load->view('sprite/edit', $data);
+        $this->load->view('template_admin/footer');
     }
 
     // =========================================================
