@@ -157,12 +157,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="<?= base_url('Sprite') ?>">
-                        <i class="material-symbols-rounded opacity-5">table_view</i>
-                        <span class="nav-link-text ms-1">Generator Jam</span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link text-dark" href="../pages/virtual-reality.html">
                         <i class="material-symbols-rounded opacity-5">view_in_ar</i>
                         <span class="nav-link-text ms-1">Virtual Reality</span>
@@ -181,26 +175,22 @@
                     </a>
                 </li>
                 <li class="nav-item mt-3">
-                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Account pages</h6>
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Jam Custom</h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="../pages/profile.html">
-                        <i class="material-symbols-rounded opacity-5">person</i>
-                        <span class="nav-link-text ms-1">Profile</span>
+                    <a class="nav-link text-dark" href="<?= base_url('Sprite') ?>">
+                        <i class="material-symbols-rounded opacity-5">table_view</i>
+                        <span class="nav-link-text ms-1">Generator Jam</span>
                     </a>
+                </li>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="../pages/sign-in.html">
-                        <i class="material-symbols-rounded opacity-5">login</i>
-                        <span class="nav-link-text ms-1">Sign In</span>
+                    <a class="nav-link text-dark" href="<?= base_url('TagController') ?>">
+                        <i class="material-symbols-rounded opacity-5">table_view</i>
+                        <span class="nav-link-text ms-1">Manage Tag</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="../pages/sign-up.html">
-                        <i class="material-symbols-rounded opacity-5">assignment</i>
-                        <span class="nav-link-text ms-1">Sign Up</span>
-                    </a>
-                </li>
+
             </ul>
         </div>
         <div class="sidenav-footer position-absolute w-100 bottom-0 ">
