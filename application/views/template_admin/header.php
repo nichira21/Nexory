@@ -162,7 +162,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark"
-                        href="<?= base_url('index.php/SpriteController') ?>">
+                        href="<?= base_url('index.php/Sprite') ?>">
                         <i class="material-symbols-rounded opacity-5">image</i>
                         <span class="nav-link-text ms-1">Manage Sprite</span>
                     </a>
@@ -170,7 +170,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link text-dark"
-                        href="<?= base_url('index.php/TagController') ?>">
+                        href="<?= base_url('index.php/Tag') ?>">
                         <i class="material-symbols-rounded opacity-5">sell</i>
                         <span class="nav-link-text ms-1">Manage Tag</span>
                     </a>
