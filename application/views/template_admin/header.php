@@ -158,7 +158,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="<?= base_url('SpriteController') ?>">
-                        <i class="material-symbols-rounded opacity-5">Generator Jam</i>
+                        <i class="material-symbols-rounded opacity-5">table_view</i>
                         <span class="nav-link-text ms-1">Generator Jam</span>
                     </a>
                 </li>
