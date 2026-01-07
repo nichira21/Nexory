@@ -1,36 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-require_once(APPPATH . 'third_party/dompdf/autoload.inc.php');
-
-use Dompdf\Dompdf;
-use Dompdf\Options;
-
-class GeneratorController extends CI_Controller
-{
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->model(['Sprite_model', 'Tag_model', 'Combination_model']);
-    }
-
-    public function index()
-    {
-        $data['is_dashboard'] = false;
-
-        $data['judul_pendek']  = 'Design Generator';
-        $data['judul_panjang'] = 'Design Generator | Nexory';
-
-        // ambil daftar tag untuk filter
-        $data['tags'] = $this->db->get('tb_tag')->result();
-
-        $this->load->view('template_admin/header', $data);
-        $this->load->view('generator/index', $data);
-        $this->load->view('template_admin/footer');
-    }
-
-
-   <?php defined('BASEPATH') or exit('No direct script access allowed');
-
 // LOAD DOMPDF
 require_once(APPPATH.'third_party/dompdf/autoload.inc.php');
 
