@@ -179,21 +179,30 @@ class GeneratorController extends CI_Controller
             // =========================
             $pages[] = '
                 <div class="page">
-
-                    <!-- BACKGROUND FULL COVER -->
+                    <!-- BACKGROUND -->
                     <img src="' . base_url($bg->file_path) . '"
                         class="layer"
                         style="width:100%;height:100%;object-fit:cover;">
 
-                    <!-- JAM -->
+                    <!-- JAM : 2cm dari atas -->
                     <img src="' . base_url($jam->file_path) . '"
                         class="layer"
-                        style="width:80%;left:10%;top:20%;">
+                        style="
+                            width:16cm;
+                            left:50%;
+                            transform:translateX(-50%);
+                            top:2cm;
+                        ">
 
                     <!-- DESIGN -->
                     <img src="' . base_url($design->file_path) . '"
                         class="layer"
-                        style="width:60%;left:20%;top:60%;">
+                        style="
+                            width:12cm;
+                            left:50%;
+                            transform:translateX(-50%);
+                            top:22cm;
+                        ">
 
                 </div>';
         }
