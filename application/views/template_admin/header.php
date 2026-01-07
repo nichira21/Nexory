@@ -161,18 +161,61 @@
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Jam Custom</h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="<?= base_url('Sprite') ?>">
-                        <i class="material-symbols-rounded opacity-5">table_view</i>
-                        <span class="nav-link-text ms-1">Generator Jam</span>
+                    <a class="nav-link text-dark"
+                        href="<?= base_url('index.php/SpriteController') ?>">
+                        <i class="material-symbols-rounded opacity-5">image</i>
+                        <span class="nav-link-text ms-1">Manage Sprite</span>
                     </a>
                 </li>
-                </li>
+
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="<?= base_url('Tag') ?>">
-                        <i class="material-symbols-rounded opacity-5">table_view</i>
+                    <a class="nav-link text-dark"
+                        href="<?= base_url('index.php/TagController') ?>">
+                        <i class="material-symbols-rounded opacity-5">sell</i>
                         <span class="nav-link-text ms-1">Manage Tag</span>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark"
+                        href="<?= base_url('index.php/GeneratorController') ?>">
+                        <i class="material-symbols-rounded opacity-5">bolt</i>
+                        <span class="nav-link-text ms-1">Generator Jam</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark"
+                        href="<?= base_url('index.php/GeneratorController/history') ?>">
+                        <i class="material-symbols-rounded opacity-5">history</i>
+                        <span class="nav-link-text ms-1">Batch History</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark"
+                        href="<?= base_url('index.php/CombinationController') ?>">
+                        <i class="material-symbols-rounded opacity-5">leaderboard</i>
+                        <span class="nav-link-text ms-1">Performance Ranking</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark"
+                        href="<?= base_url('index.php/SalesController') ?>">
+                        <i class="material-symbols-rounded opacity-5">shopping_cart</i>
+                        <span class="nav-link-text ms-1">Record Sales</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark"
+                        href="<?= base_url('index.php/SalesController/log') ?>">
+                        <i class="material-symbols-rounded opacity-5">receipt_long</i>
+                        <span class="nav-link-text ms-1">Sales Log</span>
+                    </a>
+                </li>
+
 
             </ul>
         </div>
