@@ -14,6 +14,7 @@ class SpriteController extends CI_Controller
     // =========================================================
     public function index()
     {
+
         $sprites = $this->db->get('tb_sprite')->result();
 
         foreach ($sprites as &$s) {
@@ -25,6 +26,12 @@ class SpriteController extends CI_Controller
 
             $s->tags = array_column($tags, 'tag_name');
         }
+
+        $data['is_dashboard'] = false;
+
+        $data['judul_pendek']  = 'Manage Products';
+        $data['judul_panjang'] = 'Manage Products | Nexory';
+
 
         $data['sprites'] = $sprites;
         $data['tags'] = $this->db->get('tb_tag')->result();
