@@ -44,11 +44,10 @@
 
         <!-- FILE -->
         <div>
-            <label>File PNG</label>
+            <label>File</label>
             <input type="file"
                 name="sprite_file"
                 class="form-control"
-                accept="image/png"
                 required>
             <small class="text-muted">
                 PNG transparan, resolusi disarankan 512×512
