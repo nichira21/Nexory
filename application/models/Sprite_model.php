@@ -17,6 +17,7 @@ class Sprite_model extends CI_Model
     }
 
 
+
     public function incrementUsedCount($sprite_id)
     {
         $this->db->set('used_count', 'used_count+1', FALSE)
