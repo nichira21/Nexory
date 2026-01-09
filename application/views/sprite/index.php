@@ -138,16 +138,52 @@
 </script>
 
 <script>
-    $(document).ready(function() {
+    $(function() {
 
         $('.select2-tags').select2({
-            theme: 'bootstrap-5', // kalau pakai bootstrap 5
             width: '100%',
-            placeholder: 'Pilih tag',
-            tags: true,
-            tokenSeparators: [','],
+            placeholder: 'Pilih atau ketik tag',
             allowClear: true,
-            dropdownParent: $('#modalTambahSprite') // ganti ID modal kamu
+            multiple: true,
+            dropdownParent: $('#modalTambahSprite'), // WAJIB untuk modal
+
+            minimumInputLength: 1,
+
+            tags: true,
+            createTag: function(params) {
+                var term = $.trim(params.term);
+
+                if (term === '') {
+                    return null;
+                }
+
+                return {
+                    id: term,
+                    text: term,
+                    newTag: true
+                };
+            },
+
+            ajax: {
+                url: "<?= site_url('Sprite/ajax_list') ?>",
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+
+            escapeMarkup: function(markup) {
+                return markup;
+            }
         });
 
     });

@@ -31,17 +31,13 @@
             <select name="tags[]"
                 class="form-control select2-tags"
                 multiple="multiple"
-                data-placeholder="Pilih tag">
-                <?php foreach ($tags as $t): ?>
-                    <option value="<?= $t->id ?>">
-                        <?= $t->tag_name ?>
-                    </option>
-                <?php endforeach ?>
+                style="width:100%">
             </select>
             <small class="text-muted">
                 Bisa pilih lebih dari satu
             </small>
         </div>
+
 
 
         <hr class="my-3">

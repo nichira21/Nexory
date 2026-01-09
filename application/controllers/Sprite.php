@@ -45,6 +45,27 @@ class Sprite extends CI_Controller
     // =========================================================
     // FORM CREATE (modal-friendly)
     // =========================================================
+
+    public function ajax_list()
+    {
+        $keyword = $this->input->get('q', true);
+
+        $this->db->select('id, tag_name as text');
+
+        if ($keyword) {
+            $this->db->like('tag_name', $keyword);
+        }
+
+        $data = $this->db
+            ->limit(20)
+            ->order_by('tag_name', 'ASC')
+            ->get('tb_tag')
+            ->result();
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
     public function create()
     {
         $data['tags'] = $this->db->get('tb_tag')->result();
@@ -138,6 +159,8 @@ class Sprite extends CI_Controller
 
         redirect('GeneratorController/history');
     }
+
+
 
 
     // =========================================================
