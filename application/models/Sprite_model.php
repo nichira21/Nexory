@@ -2,18 +2,20 @@
 
 class Sprite_model extends CI_Model
 {
-    public function getSpritesByTags($tags, $type)
+    public function getSpritesByTags($tag_ids, $type)
     {
-        $this->db->select('s.*')
+        return $this->db
+            ->select('s.*')
             ->from('tb_sprite s')
-            ->join('tb_sprite_tag st', 'st.sprite_id=s.id')
-            ->join('tb_tag t', 't.id=st.tag_id')
-            ->where_in('t.tag_name', $tags)
+            ->join('tb_sprite_tag st', 'st.sprite_id = s.id')
+            ->where_in('st.tag_id', $tag_ids)
             ->where('s.sprite_type', $type)
-            ->group_by('s.id');
-
-        return $this->db->get()->result();
+            ->where('s.is_active', 1)
+            ->group_by('s.id')
+            ->get()
+            ->result();
     }
+
 
     public function incrementUsedCount($sprite_id)
     {
