@@ -62,7 +62,7 @@
             placeholder: 'Pilih tag',
             allowClear: true,
             multiple: true,
-            minimumInputLength: 1,
+            // minimumInputLength: 1,
 
             ajax: {
                 url: "<?= site_url('Sprite/ajax_list') ?>",
