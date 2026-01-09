@@ -136,3 +136,19 @@
             '<?= site_url("sprite/delete/") ?>' + id;
     }
 </script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.select2-tags').select2({
+            theme: 'bootstrap-5', // kalau pakai bootstrap 5
+            width: '100%',
+            placeholder: 'Pilih tag',
+            tags: true,
+            tokenSeparators: [','],
+            allowClear: true,
+            dropdownParent: $('#modalTambahSprite') // ganti ID modal kamu
+        });
+
+    });
+</script>

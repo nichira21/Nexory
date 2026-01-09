@@ -28,7 +28,10 @@
         <!-- TAG -->
         <div class="mt-3">
             <label>Tag</label>
-            <select name="tags[]" class="form-control" multiple>
+            <select name="tags[]"
+                class="form-control select2-tags"
+                multiple="multiple"
+                data-placeholder="Pilih tag">
                 <?php foreach ($tags as $t): ?>
                     <option value="<?= $t->id ?>">
                         <?= $t->tag_name ?>
@@ -39,6 +42,7 @@
                 Bisa pilih lebih dari satu
             </small>
         </div>
+
 
         <hr class="my-3">
 

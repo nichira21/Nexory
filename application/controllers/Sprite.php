@@ -61,26 +61,43 @@ class Sprite extends CI_Controller
     // =========================================================
     public function store()
     {
-        $sprite_name = $this->input->post('sprite_name');
-        $sprite_type = $this->input->post('sprite_type');
-        $tags        = $this->input->post('tags');
+        /* ===============================
+     * 1. INPUT
+     * =============================== */
+        $sprite_name = trim($this->input->post('sprite_name', true));
+        $sprite_type = $this->input->post('sprite_type', true);
+        $tags        = $this->input->post('tags'); // array dari select2
 
-        // upload config
-        $config['upload_path']   = './uploads/sprites/';
-        $config['allowed_types'] = 'png';
-        $config['max_size']      = 4096;
-        $config['encrypt_name']  = TRUE;
+        if (!$sprite_name || !$sprite_type) {
+            show_error('Data tidak lengkap', 400);
+        }
+
+        /* ===============================
+     * 2. UPLOAD CONFIG
+     * =============================== */
+        $config = [
+            'upload_path'   => './uploads/sprites/',
+            'allowed_types' => 'png',
+            'max_size'      => 4096, // KB
+            'encrypt_name'  => true
+        ];
 
         $this->load->library('upload', $config);
 
-        if (!$this->upload->do_upload('sprite_file'))
-            show_error($this->upload->display_errors(), 400);
+        if (!$this->upload->do_upload('sprite_file')) {
+            show_error($this->upload->display_errors('', ''), 400);
+        }
 
-        $file = $this->upload->data('file_name');
-        $path = 'uploads/sprites/' . $file;
+        $upload_data = $this->upload->data();
+        $file        = $upload_data['file_name'];
+        $path        = 'uploads/sprites/' . $file;
 
-        $this->db->trans_start();
+        /* ===============================
+     * 3. TRANSACTION DB
+     * =============================== */
+        $this->db->trans_begin();
 
+        // insert sprite
         $this->db->insert('tb_sprite', [
             'sprite_name' => $sprite_name,
             'sprite_type' => $sprite_type,
@@ -90,22 +107,38 @@ class Sprite extends CI_Controller
 
         $sprite_id = $this->db->insert_id();
 
-        if (!empty($tags)) {
+        if (!$sprite_id) {
+            $this->db->trans_rollback();
+            @unlink('./' . $path);
+            show_error('Gagal menyimpan sprite', 500);
+        }
+
+        // insert tag relasi
+        if (is_array($tags)) {
             foreach ($tags as $tag_id) {
+                if (!$tag_id) continue;
+
                 $this->db->insert('tb_sprite_tag', [
                     'sprite_id' => $sprite_id,
-                    'tag_id' => $tag_id
+                    'tag_id'    => (int) $tag_id
                 ]);
             }
         }
 
-        $this->db->trans_complete();
+        /* ===============================
+     * 4. COMMIT / ROLLBACK
+     * =============================== */
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            @unlink('./' . $path);
+            show_error('Failed saving sprite', 500);
+        }
 
-        if (!$this->db->trans_status())
-            show_error("Failed saving sprite", 500);
+        $this->db->trans_commit();
 
-        redirect('sprite');
+        redirect('GeneratorController/history');
     }
+
 
     // =========================================================
     // EDIT

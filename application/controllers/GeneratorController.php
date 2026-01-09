@@ -218,11 +218,33 @@ class GeneratorController extends CI_Controller
 
         $dompdf->render();
 
-        // STREAM TO BROWSER (NO FILE WRITE)
-        $dompdf->stream("design_batch_{$batch_id}.pdf", [
-            "Attachment" => false
-        ]);
+        $output = $dompdf->output();
 
-        exit;
+        $pdf_path = FCPATH . "uploads/generated/design_batch_{$batch_id}.pdf";
+
+        file_put_contents($pdf_path, $output);
+
+        // simpan path ke DB
+        $this->db->update('tb_generate_batch', [
+            'pdf_path' => "uploads/generated/design_batch_{$batch_id}.pdf"
+        ], ['id' => $batch_id]);
+
+        // redirect ke history
+        redirect('GeneratorController/history');
+    }
+
+    public function history()
+    {
+        $data['judul_pendek']  = 'Generator History';
+        $data['judul_panjang'] = 'Generator History | Nexory';
+
+        $data['batches'] = $this->db
+            ->order_by('id', 'DESC')
+            ->get('tb_generate_batch')
+            ->result();
+
+        $this->load->view('template_admin/header', $data);
+        $this->load->view('generator/history', $data);
+        $this->load->view('template_admin/footer');
     }
 }
