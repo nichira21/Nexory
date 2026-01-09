@@ -167,7 +167,7 @@ class Sprite extends CI_Controller
 
         $this->db->trans_commit();
 
-        redirect('GeneratorController/history');
+        redirect('Sprite');
     }
 
 
