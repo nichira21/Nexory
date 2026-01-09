@@ -146,7 +146,7 @@
             multiple: true,
             dropdownParent: $('#spriteModal'),
 
-            minimumInputLength: 1,
+            // minimumInputLength: 1,
 
             tags: true,
             createTag: function(params) {
