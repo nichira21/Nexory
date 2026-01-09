@@ -59,23 +59,10 @@
 
         $(context).find('.select2-tags').select2({
             width: '100%',
-            placeholder: 'Pilih atau ketik tag',
+            placeholder: 'Pilih tag',
             allowClear: true,
             multiple: true,
-
             minimumInputLength: 1,
-
-            tags: true,
-            createTag: function(params) {
-                const term = $.trim(params.term);
-                if (!term) return null;
-
-                return {
-                    id: term,
-                    text: term,
-                    newTag: true
-                };
-            },
 
             ajax: {
                 url: "<?= site_url('Sprite/ajax_list') ?>",
@@ -95,4 +82,9 @@
             }
         });
     }
+
+    // init saat halaman load
+    $(function() {
+        initSelect2Tags();
+    });
 </script>
