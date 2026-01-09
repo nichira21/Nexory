@@ -19,12 +19,10 @@
 
                     <div class="col-md-4">
                         <label class="fw-semibold">Pilih Tag</label>
-                        <select class="form-control" name="tags[]" multiple required>
-                            <?php foreach ($tags as $t): ?>
-                                <option value="<?= $t->tag_name ?>">
-                                    <?= $t->tag_name ?>
-                                </option>
-                            <?php endforeach ?>
+                        <select class="form-control select2-tags"
+                            name="tags[]"
+                            multiple="multiple"
+                            style="width:100%">
                         </select>
                     </div>
 
@@ -55,3 +53,46 @@
     </div>
 
 </div>
+
+<script>
+    function initSelect2Tags(context = document) {
+
+        $(context).find('.select2-tags').select2({
+            width: '100%',
+            placeholder: 'Pilih atau ketik tag',
+            allowClear: true,
+            multiple: true,
+
+            minimumInputLength: 1,
+
+            tags: true,
+            createTag: function(params) {
+                const term = $.trim(params.term);
+                if (!term) return null;
+
+                return {
+                    id: term,
+                    text: term,
+                    newTag: true
+                };
+            },
+
+            ajax: {
+                url: "<?= site_url('Sprite/ajax_list') ?>",
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            }
+        });
+    }
+</script>
