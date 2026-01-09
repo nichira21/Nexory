@@ -136,15 +136,25 @@ class Sprite extends CI_Controller
 
         // insert tag relasi
         if (is_array($tags)) {
-            foreach ($tags as $tag_id) {
-                if (!$tag_id) continue;
+            foreach ($tags as $tag) {
+
+                if (!is_numeric($tag)) {
+                    // TAG BARU
+                    $this->db->insert('tb_tag', [
+                        'tag_name' => trim($tag)
+                    ]);
+                    $tag_id = $this->db->insert_id();
+                } else {
+                    $tag_id = (int) $tag;
+                }
 
                 $this->db->insert('tb_sprite_tag', [
                     'sprite_id' => $sprite_id,
-                    'tag_id'    => (int) $tag_id
+                    'tag_id'    => $tag_id
                 ]);
             }
         }
+
 
         /* ===============================
      * 4. COMMIT / ROLLBACK

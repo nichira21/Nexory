@@ -138,24 +138,20 @@
 </script>
 
 <script>
-    $(function() {
-
+    function initSelect2Tags() {
         $('.select2-tags').select2({
             width: '100%',
             placeholder: 'Pilih atau ketik tag',
             allowClear: true,
             multiple: true,
-            dropdownParent: $('#modalTambahSprite'), // WAJIB untuk modal
+            dropdownParent: $('#spriteModal'),
 
             minimumInputLength: 1,
 
             tags: true,
             createTag: function(params) {
-                var term = $.trim(params.term);
-
-                if (term === '') {
-                    return null;
-                }
+                const term = $.trim(params.term);
+                if (!term) return null;
 
                 return {
                     id: term,
@@ -165,7 +161,7 @@
             },
 
             ajax: {
-                url: "<?= site_url('Sprite/ajax_list') ?>",
+                url: "https://nexory.id/Sprite/ajax_list",
                 dataType: 'json',
                 delay: 250,
                 data: function(params) {
@@ -179,12 +175,19 @@
                     };
                 },
                 cache: true
-            },
-
-            escapeMarkup: function(markup) {
-                return markup;
             }
         });
+    }
 
-    });
+    function openAddSprite() {
+        $('#modalTitle').text('Tambah Sprite');
+
+        $.get('https://nexory.id/sprite/create', function(res) {
+            $('#modalBody').html(res);
+            $('#spriteModal').modal('show');
+
+            // 🔥 INIT SETELAH HTML ADA
+            initSelect2Tags();
+        });
+    }
 </script>
