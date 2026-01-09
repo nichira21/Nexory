@@ -98,7 +98,7 @@ class Sprite extends CI_Controller
      * =============================== */
         $config = [
             'upload_path'   => './uploads/sprites/',
-            // 'allowed_types' => 'png',
+            'allowed_types' => '*',
             'max_size'      => 4096, // KB
             'encrypt_name'  => true
         ];
