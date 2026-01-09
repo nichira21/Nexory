@@ -16,12 +16,6 @@
  </footer>
  </div>
  </main>
- <!-- ===============================
-JQUERY (HARUS PALING ATAS)
-=============================== -->
- <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-     crossorigin="anonymous"></script>
 
  <!-- BOOTSTRAP -->
  <script src="<?= base_url(); ?>assets/js/core/popper.min.js"></script>
